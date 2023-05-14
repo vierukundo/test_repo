@@ -108,7 +108,7 @@ list_path *set_all_paths_to_list()
     if(path_variable == NULL)
         return (NULL);
     
-    path_var_cpy = strdup(path_variable);
+    path_var_cpy = _strdup(path_variable);
     if (path_var_cpy == NULL)
         return (NULL);/*can't cpy*/
 	
