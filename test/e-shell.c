@@ -1,10 +1,10 @@
 #include "shell.h"
 
 /*prototypes*/
-void exit_check(int nread, char* exit_cmd);
+void exit_check(int nread, char *exit_cmd);
 int _strcmp(char *s1, char *s2);
 char *_getenv(const char *name);
-int has_access(char * cmd);
+int has_access(char *cmd);
 void free_list(list_path *head);
 int _strlen(char *s);
 char *_strdup(const char *str);
@@ -12,66 +12,62 @@ list_path *add_node(list_path **head, const char *path);
 list_path *set_all_paths_to_list();
 size_t print_list(const list_path *p);
 
-
 int main(int argc, char *argv[], char *env[])
 {
-    int pid;
-    ssize_t nread;
-    char *line;
-    size_t n;
-    char *av[] = {NULL};
-    char *en[] = {NULL};
-    list_path *list_of_paths;
-    
-    list_of_paths = set_all_paths_to_list();
-    if(list_of_paths == NULL)
-    {
-        write(STDERR_FILENO, "ERROR", 5);
-        exit(127);
-    }
-    
-    if (isatty(STDIN_FILENO))
-    {
-        while (1)
-        {
-            write(STDOUT_FILENO, "^_* -> ", 7);
-            nread = getline(&line, &n, stdin);
-            exit_check(nread, line);
-            
-            line[nread - 1] = '\0';
+	int pid;
+	ssize_t nread;
+	char *line;
+	size_t n;
+	char *av[] = {NULL};
+	char *en[] = {NULL};
+	list_path *list_of_paths;
 
-            if(access(line, X_OK) == 0)
-                pid = fork();
-            else
-            {
-                write(STDERR_FILENO, argv[0], sizeof(argv[0]));
-                write(STDERR_FILENO, ": No such file or directory\n", 28);
+	list_of_paths = set_all_paths_to_list();
+	if (list_of_paths == NULL)
+	{
+		write(STDERR_FILENO, "ERROR", 5);
+		exit(127);
+	}
 
-            }
-            if(pid != 0)
-            {
-                wait(NULL);
-            }
-            if(pid == 0)
-            {
-                printf("im child");
-                fflush(stdout);
-                execve(line, av, en);
-            }
-            
-        }
-    }
+	if (isatty(STDIN_FILENO))
+	{
+		while (1)
+		{
+			write(STDOUT_FILENO, "^_* -> ", 7);
+			nread = getline(&line, &n, stdin);
+			exit_check(nread, line);
 
-    /*
-        TODO FREE
-    */
-    return (0);
+			line[nread - 1] = '\0';
+
+			if (access(line, X_OK) == 0)
+				pid = fork();
+			else
+			{
+				write(STDERR_FILENO, argv[0], sizeof(argv[0]));
+				write(STDERR_FILENO, ": No such file or directory\n", 28);
+			}
+			if (pid != 0)
+			{
+				wait(NULL);
+			}
+			if (pid == 0)
+			{
+				printf("im child");
+				fflush(stdout);
+				execve(line, av, en);
+			}
+		}
+	}
+
+	/*
+		TODO FREE
+	*/
+	return (0);
 }
 
-
-void exit_check(int nread, char* exit_cmd)
+void exit_check(int nread, char *exit_cmd)
 {
-	if(nread == EOF)
+	if (nread == EOF)
 	{
 		write(STDOUT_FILENO, "\n", 1);
 		exit(0);
@@ -83,42 +79,39 @@ void exit_check(int nread, char* exit_cmd)
 	}
 }
 
-int has_access(char * cmd)
+int has_access(char *cmd)
 {
-    char *path;
-    
-    path = _getenv("PATH");
-    if(path == NULL)
-        return (-1);/*var PATH not exists*/
-    
+	char *path;
 
-    
-    
-    
-    return (-1);/*does not have access*/
+	path = _getenv("PATH");
+	if (path == NULL)
+		return (-1); /*var PATH not exists*/
+
+	return (-1); /*does not have access*/
 }
 
 list_path *set_all_paths_to_list()
 {
-    char *path_variable, *path, *path_var_cpy, *token;
-    list_path *paths_list;
-    
-    paths_list = NULL;
-    path_variable = _getenv("PATH");
-    if(path_variable == NULL)
-        return (NULL);
-    
-    path_var_cpy = strdup(path_variable);
-    if (path_var_cpy == NULL)
-        return (NULL);/*can't cpy*/
-	
-    token = strtok(path_var_cpy, ":");
-    while (token != NULL) {
-        add_node(&paths_list, token);
-        token = strtok(NULL, ":");
-    }
-    
-    return (paths_list);/*does not have access*/
+	char *path_variable, *path, *path_var_cpy, *token;
+	list_path *paths_list;
+
+	paths_list = NULL;
+	path_variable = _getenv("PATH");
+	if (path_variable == NULL)
+		return (NULL);
+
+	path_var_cpy = strdup(path_variable);
+	if (path_var_cpy == NULL)
+		return (NULL); /*can't cpy*/
+
+	token = strtok(path_var_cpy, ":");
+	while (token != NULL)
+	{
+		add_node(&paths_list, token);
+		token = strtok(NULL, ":");
+	}
+
+	return (paths_list); /*does not have access*/
 }
 int _strcmp(char *s1, char *s2)
 {
@@ -129,14 +122,12 @@ int _strcmp(char *s1, char *s2)
 			return (s1[i] - s2[i]);
 	}
 	return (0);
-
 }
-
 
 char *_getenv(const char *name)
 {
 	int i = 0, j = 0;
-    extern char **environ;
+	extern char **environ;
 
 	if (name == NULL)
 		return (NULL);
@@ -145,9 +136,9 @@ char *_getenv(const char *name)
 		j = 0;
 		while (environ[i][j] != '=')
 		{
-			if(environ[i][j] != name[j])
+			if (environ[i][j] != name[j])
 				break;
-			if(environ[i][j] == name[j] && (environ[i][j+1] == '='))
+			if (environ[i][j] == name[j] && (environ[i][j + 1] == '='))
 				return (&environ[i][strlen(name) + 1]);
 			j++;
 		}
@@ -155,7 +146,6 @@ char *_getenv(const char *name)
 	}
 	return (NULL);
 }
-
 
 list_path *add_node(list_path **head, const char *path)
 {
@@ -244,7 +234,6 @@ void free_list(list_path *head)
 		free(head->path);
 	free(head);
 }
-
 
 /**
  * print_list - print list of strings
