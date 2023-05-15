@@ -11,16 +11,25 @@ char *_strdup(const char *str);
 list_path *add_node(list_path **head, const char *path);
 list_path *set_all_paths_to_list();
 size_t print_list(const list_path *p);
+char **get_av_with_flags(char *line);
+unsigned int char_count(char *str, char c);
+
 
 int main(int argc, char *argv[], char *env[])
 {
 	int pid;
 	ssize_t nread;
 	char *line;
-	size_t n;
-	char *av[] = {NULL};
+	size_t n = 0;
+	char **av;
 	char *en[] = {NULL};
 	list_path *list_of_paths;
+	
+	av = get_av_with_flags("ls -l -f");
+
+	printf("%s\n", av[0]);
+	fflush(stdout);
+	exit(0);
 
 	list_of_paths = set_all_paths_to_list();
 	if (list_of_paths == NULL)
@@ -38,7 +47,7 @@ int main(int argc, char *argv[], char *env[])
 			exit_check(nread, line);
 
 			line[nread - 1] = '\0';
-
+			
 			if (access(line, X_OK) == 0)
 				pid = fork();
 			else
@@ -65,6 +74,31 @@ int main(int argc, char *argv[], char *env[])
 	return (0);
 }
 
+/*av {t1}*/
+char **get_av_with_flags(char *line)
+{
+	/*ls\0-l\0-a\0*/
+	char *line_cpy, *token;
+	char **av;
+	int i = 0;
+
+	line_cpy = strdup(line);
+	
+	if (line_cpy == NULL)
+		return (NULL); /*can't cpy*/
+	
+	token = strtok(line_cpy, " ");
+	
+	while (token != NULL)
+	{
+		av[i++] = token;
+		token = strtok(NULL, " ");
+		
+	}
+
+	return (av);
+
+}
 void exit_check(int nread, char *exit_cmd)
 {
 	if (nread == EOF)
@@ -258,4 +292,18 @@ size_t print_list(const list_path *p)
 		size++;
 	}
 	return (size);
+}
+
+
+unsigned int char_count(char *str, char c)
+{
+	unsigned int count = 0;
+
+	while (*str != '\0')
+	{
+		if(*str == c)
+			count++;
+		str++;
+	}
+	return (count);
 }

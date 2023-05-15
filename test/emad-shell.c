@@ -17,11 +17,12 @@ int main(int argc, char *argv[], char *env[])
     int pid;
     ssize_t nread;
     char *line;
-    size_t n;
+    size_t n = 0;
     char *av[] = {NULL};
     char *en[] = {NULL};
     list_path *list_of_paths;
-
+    char *input; //addition
+    int i = 0;
     list_of_paths = set_all_paths_to_list();
     if (list_of_paths == NULL)
     {
@@ -40,8 +41,8 @@ int main(int argc, char *argv[], char *env[])
             line[nread - 1] = '\0';
 
 /*======================= start addition ==========================*/
-            char *input = strtok(line, " "); //addition
-            int i;
+            input = strtok(line, " "); //addition
+
             while (input)
             {
                 av[i] = input;
@@ -70,11 +71,11 @@ int main(int argc, char *argv[], char *env[])
             if (pid == 0)
             {
                 printf("im child");
-                // char *XXX = strcat("/bin/", av[0]);
+                char *XXX = strcat("/user/bin/", av[0]);
 
                 // printf("%s\n", XXX);
                 fflush(stdout);
-                execve("/bin/ls", av, en);
+                execve(XXX, av, en);
             }
         }
     }
