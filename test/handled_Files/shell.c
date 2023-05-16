@@ -13,7 +13,7 @@ int main(int argc, char *argv[], char *env[])
     ssize_t nread;
     char *line = NULL;
     size_t n = 0;
-    char *av[100] = {NULL}; // updated to a fixed size array
+    char *av[100] = {NULL};
     char *en[] = {NULL};
     list_path *list_of_paths;
     char *input;
@@ -38,7 +38,7 @@ int main(int argc, char *argv[], char *env[])
 
             input = strtok(line, " ");
             i = 0;
-            while (input && i < 99) 
+            while (input && i < 99)
             {
                 av[i] = input;
                 input = strtok(NULL, " ");
@@ -59,7 +59,7 @@ int main(int argc, char *argv[], char *env[])
                 }
                 strcpy(full_path, current->path); // to copy path to full_path
                 strcat(full_path, "/"); // to add '/' to full_path
-                strcat(full_path, av[0]); //  to add command to full_path
+                strcat(full_path, av[0]);
                 if (access(full_path, X_OK) == 0)
                 {
                     found = 1;
@@ -96,7 +96,7 @@ int main(int argc, char *argv[], char *env[])
     }
 
 
-    free_list(list_of_paths); // to free the list
-    free(line); // to free the getline buffer
+    free_list(list_of_paths);
+    free(line);
     return (0);
 }
