@@ -6,7 +6,7 @@
  * Return: pointer
  */
 
-list_path *add_node(list_path **head, const char *path)
+list_path *add_node(list_path **head, char *path)
 {
     char *s_cpy;
     list_path *l;

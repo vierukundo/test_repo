@@ -28,11 +28,12 @@ char *_getenv(const char *name);
 int has_access(char *cmd);
 void free_list(list_path *head);
 int _strlen(char *s);
-char *_strdup(const char *str);
-list_path *add_node(list_path **head, const char *path);
+char *_strdup(char *str);
+list_path *add_node(list_path **head, char *path);
 list_path *set_all_paths_to_list();
 size_t print_list(const list_path *p);
 char **get_av_with_flags(char *line);
 unsigned int char_count(char *str);
-
+char *_strcat(char *dest, char *src);
+char *_strcpy(char *dest, char *src);
 #endif 

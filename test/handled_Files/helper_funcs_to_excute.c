@@ -42,7 +42,11 @@ void exit_check(int nread, char *exit_cmd)
     }
     if (_strcmp(exit_cmd, "exit") == 0)
     {
-        write(STDOUT_FILENO, "\n", 1);
+        exit(0);
+    }
+
+    if (_strcmp(exit_cmd, "exit") == 0)
+    {
         exit(0);
     }
 }

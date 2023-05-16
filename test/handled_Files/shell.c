@@ -9,7 +9,7 @@
 
 int main(int argc, char *argv[], char *env[])
 {
-    int pid;
+    int pid,i = 0;;
     ssize_t nread;
     char *line = NULL;
     size_t n = 0;
@@ -17,7 +17,7 @@ int main(int argc, char *argv[], char *env[])
     char *en[] = {NULL};
     list_path *list_of_paths;
     char *input;
-    int i = 0;
+    
     list_of_paths = set_all_paths_to_list();
     if (list_of_paths == NULL)
     {
@@ -30,12 +30,14 @@ int main(int argc, char *argv[], char *env[])
         while (1)
         {
             write(STDOUT_FILENO, "^_* -> ", 7);
-            fflush(stdout);
             nread = getline(&line, &n, stdin);
-            exit_check(nread, line);
-
+            if(line[0] == '\n' && nread == 1)
+                continue;
             line[nread - 1] = '\0';
-
+            exit_check(nread, line);
+            /*built-in*/
+            
+            /*not bulit-in*/
             input = strtok(line, " ");
             i = 0;
             while (input && i < 99)
@@ -57,9 +59,9 @@ int main(int argc, char *argv[], char *env[])
                     write(STDERR_FILENO, "ERROR: Path too long\n", 21);
                     break;
                 }
-                strcpy(full_path, current->path); // to copy path to full_path
-                strcat(full_path, "/"); // to add '/' to full_path
-                strcat(full_path, av[0]);
+                _strcpy(full_path, current->path); // to copy path to full_path
+                _strcat(full_path, "/"); // to add '/' to full_path
+                _strcat(full_path, av[0]);
                 if (access(full_path, X_OK) == 0)
                 {
                     found = 1;
@@ -70,8 +72,7 @@ int main(int argc, char *argv[], char *env[])
 
             if (!found)
             {
-                write(STDERR_FILENO, argv[0], _strlen(argv[0]));
-                write(STDERR_FILENO, ": command not found\n", 20);
+                perror("access");
                 continue;
             }
 
