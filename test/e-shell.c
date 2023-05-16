@@ -12,7 +12,7 @@ list_path *add_node(list_path **head, const char *path);
 list_path *set_all_paths_to_list();
 size_t print_list(const list_path *p);
 char **get_av_with_flags(char *line);
-unsigned int char_count(char *str, char c);
+unsigned int char_count(char *str);
 
 
 int main(int argc, char *argv[], char *env[])
@@ -24,12 +24,20 @@ int main(int argc, char *argv[], char *env[])
 	char **av;
 	char *en[] = {NULL};
 	list_path *list_of_paths;
-	
-	av = get_av_with_flags("ls -l -f");
-
-	printf("%s\n", av[0]);
+	int x;
+    
+	/*
+		av = get_av_with_flags("ls -l -f");
 	fflush(stdout);
+	for (x = 0; x < 3; x++)
+	{
+		printf("%s\n", av[x]);
+		fflush(stdout);
+	}
+
 	exit(0);
+	*/
+
 
 	list_of_paths = set_all_paths_to_list();
 	if (list_of_paths == NULL)
@@ -44,9 +52,10 @@ int main(int argc, char *argv[], char *env[])
 		{
 			write(STDOUT_FILENO, "^_* -> ", 7);
 			nread = getline(&line, &n, stdin);
+			line[nread - 1] = '\0';
 			exit_check(nread, line);
 
-			line[nread - 1] = '\0';
+			
 			
 			if (access(line, X_OK) == 0)
 				pid = fork();
@@ -77,25 +86,35 @@ int main(int argc, char *argv[], char *env[])
 /*av {t1}*/
 char **get_av_with_flags(char *line)
 {
-	/*ls\0-l\0-a\0*/
-	char *line_cpy, *token;
+	
+	char *line_cpy, *token, *cmd;
 	char **av;
 	int i = 0;
+	unsigned int c_count;
 
-	line_cpy = strdup(line);
-	
+	line_cpy = _strdup(line);
 	if (line_cpy == NULL)
 		return (NULL); /*can't cpy*/
+
+	c_count = char_count(line_cpy);
+	av = malloc(c_count * sizeof(char*));
+	
 	
 	token = strtok(line_cpy, " ");
-	
-	while (token != NULL)
-	{
-		av[i++] = token;
-		token = strtok(NULL, " ");
-		
+    cmd = _strdup(token);
+    av[i++] = cmd;
+    while (token != NULL)
+    {
+        token = strtok(NULL, " ");
+        if(token != NULL)
+        {
+          cmd = _strdup(token);
+          av[i++] = cmd; 
+        }
+        
 	}
 
+	free(line_cpy);
 	return (av);
 
 }
@@ -106,7 +125,7 @@ void exit_check(int nread, char *exit_cmd)
 		write(STDOUT_FILENO, "\n", 1);
 		exit(0);
 	}
-	if (_strcmp(exit_cmd, "exit\n") == 0)
+	if (_strcmp(exit_cmd, "exit") == 0)
 	{
 		write(STDOUT_FILENO, "\n", 1);
 		exit(0);
@@ -227,6 +246,7 @@ char *_strdup(const char *str)
 	arr = malloc((sizeof(char) * len) + 1);
 	if (arr == NULL)
 		return (NULL);
+	arr[len];
 	while (len--)
 		arr[len] = str[len];
 	return (arr);
@@ -295,15 +315,15 @@ size_t print_list(const list_path *p)
 }
 
 
-unsigned int char_count(char *str, char c)
+unsigned int char_count(char *str)
 {
 	unsigned int count = 0;
 
 	while (*str != '\0')
 	{
-		if(*str == c)
+		if(*str != ' ' && *(str+1) == ' ')
 			count++;
 		str++;
 	}
-	return (count);
+	return (count + 1);
 }
