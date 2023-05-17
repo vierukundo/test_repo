@@ -2,8 +2,15 @@
 
 void print_env(char **line_vector)
 {
-	printf("env TODO\n");
-	fflush(stdout);
+	extern char **environ;
+	int i;
+
+	for (i=0; environ[i]!=NULL; i++) 
+	{
+        printf("%s\n" ,environ[i]);
+		fflush(stdout);
+    }
+	
 }
 
 void print_status(char **line_vector)
