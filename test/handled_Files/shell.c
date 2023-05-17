@@ -38,7 +38,7 @@ int main(int argc, char *argv[], char *env[])
             exit_check(nread, line);
             /*built-in*/
 
-            /*not bulit-in*/
+/*not bulit-in*/
             input = strtok(line, " ");
             i = 0;
             while (input && i < 99)
