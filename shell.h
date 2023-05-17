@@ -56,7 +56,7 @@ char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
 
 /*====================================================================================*/
-char *check_access(char *line);
+char *check_access(char *line_av_1);
 void execute_command(char *path, char **av, char **env);
 void print_env(char **line_vector);
 void print_ppid(char **line_vector);

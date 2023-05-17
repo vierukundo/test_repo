@@ -10,8 +10,7 @@
 int main(int argc, char *argv[], char *env[])
 {
 	int mode;
-	char *line, **line_vector;
-	char **av = get_av_with_flags(line);
+	char *line, **line_vector, *new_path;
 	/*mode checking*/
 	mode = check_mode(argc);
 	if (mode != INTERACTIVE)
@@ -34,47 +33,31 @@ int main(int argc, char *argv[], char *env[])
 			execute_command(line_vector[0], line_vector, env);
 		else
 		{
-
-			if (av = check_access(line_vector[0]))
+			if (new_path = check_access(line_vector[0]))
 			{
-				execute_command(av, line_vector, env);
-				// printf("%shahaaa\n", av);
+				free(line_vector[0]);
+				line_vector[0] = new_path;
+				execute_command(line_vector[0], line_vector, env);
 			}
-
-			// free(av);
-			// free(line_vector);
 		}
-
-		// printf("TODO\n");
-		// fflush(stdout);
-		/*
-		line_vector[0] = ls
-		line_vector[0] .free
-		line_vector[0] = /bin/ls
-		check_access(ls)
-		/bin/ls
-
-		NULL or char *
-		*/
 	}
-
 	free(line);
 	return (0);
 }
 
-char *check_access(char *line)
+char *check_access(char *line_av_1)
 {
-	char *full_path,
-		**av = get_av_with_flags(line);
+	char *full_path;
 	int i, found = 0, len;
 	pid_t pid;
-
 	list_path *current;
-	current = set_all_paths_to_list();
 
+	current = set_all_paths_to_list();
+	if(current == NULL)
+		return (NULL);
 	while (current)
 	{
-		len = _strlen(current->path) + _strlen(av[0]) + 2; // to calculate the length of the full path
+		len = _strlen(current->path) + _strlen(line_av_1) + 2; // to calculate the length of the full path
 		if (len > 1024)
 		{
 			write(STDERR_FILENO, "ERROR: Path too long\n", 21);
@@ -83,10 +66,9 @@ char *check_access(char *line)
 		full_path = (char *)malloc(len * sizeof(char));
 		_strcpy(full_path, current->path);
 		_strcat(full_path, "/");
-		_strcat(full_path, line);
+		_strcat(full_path, line_av_1);
 		if (access(full_path, X_OK) == 0)
 		{
-			// printf("hello");
 			found = 1;
 			break;
 		}
@@ -95,7 +77,6 @@ char *check_access(char *line)
 
 		current = current->next;
 	}
-	// free(av);
 	if (found)
 		return (full_path);
 	else

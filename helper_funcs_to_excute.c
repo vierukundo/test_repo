@@ -15,8 +15,7 @@ char **get_av_with_flags(char *line)
         return (NULL); /*can't cpy*/
 
     c_count = char_count(line_cpy);
-    av = malloc((c_count + 1)* sizeof(char *) );
-
+    av = malloc((c_count + 1) * sizeof(char *));
     token = strtok(line_cpy, " ");
     cmd = _strdup(token);
     av[i++] = cmd;
@@ -28,6 +27,7 @@ char **get_av_with_flags(char *line)
             cmd = _strdup(token);
             av[i++] = cmd;
         }
+        av[i] = token;
     }
 
     free(line_cpy);
