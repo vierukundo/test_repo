@@ -55,11 +55,12 @@ char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
 
 /*====================================================================================*/
+char *num_to_char(int num);
 char *check_access(char *line_av_1);
 void execute_command(char *path, char **av, char **env);
 void print_env(char **line_vector);
-void print_ppid(char **line_vector);
-void print_status(char **line_vector);
+char* get_process_id();
+char* get_status(int n);
 int is_built_in(char **line_vector);
 void is_exit(char *line);
 char *get_command_from_file(char *file);
