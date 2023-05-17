@@ -9,7 +9,8 @@
 
 int main(int argc, char *argv[], char *env[])
 {
-    int pid,i = 0;;
+    int pid, i = 0;
+    ;
     ssize_t nread;
     char *line = NULL;
     size_t n = 0;
@@ -17,7 +18,7 @@ int main(int argc, char *argv[], char *env[])
     char *en[] = {NULL};
     list_path *list_of_paths;
     char *input;
-    
+
     list_of_paths = set_all_paths_to_list();
     if (list_of_paths == NULL)
     {
@@ -31,14 +32,14 @@ int main(int argc, char *argv[], char *env[])
         {
             write(STDOUT_FILENO, "^_* -> ", 7);
             nread = getline(&line, &n, stdin);
-            if(line[0] == '\n' && nread == 1)
+            if (line[0] == '\n' && nread == 1)
                 continue;
             line[nread - 1] = '\0';
 
             exit_check(nread, line);
             /*built-in*/
 
-/*not bulit-in*/
+            /*not bulit-in*/
             input = strtok(line, " ");
             i = 0;
             while (input && i < 99)
@@ -61,7 +62,7 @@ int main(int argc, char *argv[], char *env[])
                     break;
                 }
                 _strcpy(full_path, current->path); // to copy path to full_path
-                _strcat(full_path, "/"); // to add '/' to full_path
+                _strcat(full_path, "/");           // to add '/' to full_path
                 _strcat(full_path, av[0]);
                 if (access(full_path, X_OK) == 0)
                 {
@@ -96,7 +97,6 @@ int main(int argc, char *argv[], char *env[])
             }
         }
     }
-
 
     free_list(list_of_paths);
     free(line);

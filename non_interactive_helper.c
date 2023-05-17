@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /*
-	betty
+    betty
 */
 void check_file()
 {

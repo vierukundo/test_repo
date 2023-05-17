@@ -53,7 +53,7 @@ char *check_access(char *line_av_1)
 	list_path *current;
 
 	current = set_all_paths_to_list();
-	if(current == NULL)
+	if (current == NULL)
 		return (NULL);
 	while (current)
 	{

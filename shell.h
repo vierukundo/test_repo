@@ -13,7 +13,6 @@
 #define NON_INTERACTIVE 0
 #define ERROR -1
 
-
 /**
  * struct list_path - singly linked list
  * @path: string
@@ -67,4 +66,4 @@ char *get_command_from_file(char *file);
 char *get_command_from_user();
 int check_mode(int argc);
 void check_file();
-#endif 
+#endif

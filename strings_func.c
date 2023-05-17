@@ -25,7 +25,7 @@ int _strlen(char *s)
  * @s1: first string
  * @s2: sec string
  * Return: 0
-*/
+ */
 int _strcmp(char *s1, char *s2)
 {
 	int i;
