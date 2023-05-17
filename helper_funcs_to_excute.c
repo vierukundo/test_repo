@@ -38,7 +38,7 @@ char **get_av_with_flags(char *line)
         }
         
     }
-    av[i] = token;
+    av[i] = NULL;
     free(line_cpy);
     return (av);
 }
