@@ -1,6 +1,5 @@
 #include "shell.h"
 
-
 /*
  * main - Entry point to the shell
  * @argc: arguements count
@@ -12,46 +11,95 @@ int main(int argc, char *argv[], char *env[])
 {
 	int mode;
 	char *line, **line_vector;
+	char **av = get_av_with_flags(line);
 	/*mode checking*/
 	mode = check_mode(argc);
-	if(mode != INTERACTIVE)
+	if (mode != INTERACTIVE)
 		return (0);
-	
-	if(mode == NON_INTERACTIVE)
+
+	if (mode == NON_INTERACTIVE)
 		check_file();
 	while (1)
 	{
-		if(mode == NON_INTERACTIVE)
+		if (mode == NON_INTERACTIVE)
 			line = get_command_from_file(argv[1]);
-		else if(mode == INTERACTIVE)
+		else if (mode == INTERACTIVE)
 			line = get_command_from_user();
 
 		is_exit(line);
 		line_vector = get_av_with_flags(line);
-		if(is_built_in(line_vector) == 0)
+		if (is_built_in(line_vector) == 0)
 			continue;
-		if(access(line_vector[0], X_OK) == 0)
-			execute_command(line_vector[0],line_vector, env);
+		if (access(line_vector[0], X_OK) == 0)
+			execute_command(line_vector[0], line_vector, env);
 		else
 		{
-			printf("TODO\n");
-			fflush(stdout);
-			/*
-			line_vector[0] = ls
-			line_vector[0] .free
-			line_vector[0] = /bin/ls
-			check_access(ls)
-			/bin/ls
 
-			NULL or char *
-			*/
-			
+			if (av = check_access(line_vector[0]))
+			{
+				execute_command(av, line_vector, env);
+				// printf("%shahaaa\n", av);
+			}
+
+			// free(av);
+			// free(line_vector);
 		}
+
+		// printf("TODO\n");
+		// fflush(stdout);
+		/*
+		line_vector[0] = ls
+		line_vector[0] .free
+		line_vector[0] = /bin/ls
+		check_access(ls)
+		/bin/ls
+
+		NULL or char *
+		*/
 	}
 
-
-    free(line);
+	free(line);
 	return (0);
+}
+
+char *check_access(char *line)
+{
+	char *full_path,
+		**av = get_av_with_flags(line);
+	int i, found = 0, len;
+	pid_t pid;
+
+	list_path *current;
+	current = set_all_paths_to_list();
+
+	while (current)
+	{
+		len = _strlen(current->path) + _strlen(av[0]) + 2; // to calculate the length of the full path
+		if (len > 1024)
+		{
+			write(STDERR_FILENO, "ERROR: Path too long\n", 21);
+			continue;
+		}
+		full_path = (char *)malloc(len * sizeof(char));
+		_strcpy(full_path, current->path);
+		_strcat(full_path, "/");
+		_strcat(full_path, line);
+		if (access(full_path, X_OK) == 0)
+		{
+			// printf("hello");
+			found = 1;
+			break;
+		}
+		else
+			free(full_path);
+
+		current = current->next;
+	}
+	// free(av);
+	if (found)
+		return (full_path);
+	else
+		return (NULL);
 }
 
 void execute_command(char *path, char **av, char **env)
@@ -59,16 +107,16 @@ void execute_command(char *path, char **av, char **env)
 	pid_t pid;
 
 	pid = fork();
-	if(pid == ERROR)
+	if (pid == ERROR)
 	{
 		perror("fork");
-        exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
-	if( pid == 0)
+	if (pid == 0)
 	{
 		execve(path, av, env);
 		perror("execve");
-        exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 	else if (pid > 0)
 	{
