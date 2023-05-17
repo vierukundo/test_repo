@@ -34,9 +34,10 @@ int main(int argc, char *argv[], char *env[])
             if(line[0] == '\n' && nread == 1)
                 continue;
             line[nread - 1] = '\0';
+
             exit_check(nread, line);
             /*built-in*/
-            
+
             /*not bulit-in*/
             input = strtok(line, " ");
             i = 0;
