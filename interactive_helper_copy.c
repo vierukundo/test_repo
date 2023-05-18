@@ -14,8 +14,12 @@ char *get_command_from_user()
 		exit(0);
 	}
 	if(line[0] == '\n' && nread == 1)
+	{
+		free(line);
 		return (NULL);
+	}
+		
 	line[nread - 1] = '\0';
-
+	
 	return (line);
 }

@@ -56,15 +56,16 @@ char *_strcpy(char *dest, char *src);
 
 /*====================================================================================*/
 char *num_to_char(int num);
-char *check_access(char *line_av_1);
+char *check_access(char *line_av_1, list_path *current);
 void execute_command(char *path, char **av, char **env);
 void print_env(char **line_vector);
 char* get_process_id();
 char* get_status(int n);
 int is_built_in(char **line_vector);
-void is_exit(char *line);
+void is_exit(char *line, char **line_vector, list_path *current);
 char *get_command_from_file(char *file);
 char *get_command_from_user();
 int check_mode(int argc);
 void check_file();
+void free_vector(char **v);
 #endif

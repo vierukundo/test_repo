@@ -15,11 +15,13 @@ int check_mode(int argc)
 }
 
 
-void is_exit(char *line)
+void is_exit(char *line,char **line_vector, list_path *current)
 {
 
 	if (_strcmp(line, "exit") == 0)
 	{
+		free(line);
+		free_list(current);
 		exit(0);
 	}
 

@@ -82,13 +82,13 @@ list_path *set_all_paths_to_list()
 {
     char *path_variable, *path, *path_var_cpy, *token;
     list_path *paths_list;
-
+    int i = 0;
     paths_list = NULL;
     path_variable = _getenv("PATH");
     if (path_variable == NULL)
         return (NULL);
 
-    path_var_cpy = strdup(path_variable);
+    path_var_cpy = _strdup(path_variable);
     if (path_var_cpy == NULL)
         return (NULL); /*can't cpy*/
 
@@ -98,6 +98,6 @@ list_path *set_all_paths_to_list()
         add_node(&paths_list, token);
         token = strtok(NULL, ":");
     }
-
+    free(path_var_cpy);
     return (paths_list); /*does not have access*/
 }
