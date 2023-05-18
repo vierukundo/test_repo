@@ -18,7 +18,7 @@ char* get_status(int n)
 {
 	char *status;
 	status = num_to_char(n);
-	return "0";
+	return status;
 	
 }
 

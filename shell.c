@@ -10,7 +10,7 @@
 int main(int argc, char *argv[], char *env[])
 {
 	int mode;
-	int status;
+	int *status;
 	char *line, **line_vector = NULL, *new_path;
 	list_path *current;
 	/*mode checking*/
@@ -30,18 +30,18 @@ int main(int argc, char *argv[], char *env[])
 		if(!line)
 			continue;
 		is_exit(line, line_vector, current);
-		line_vector = get_av_with_flags(line);
+		line_vector = get_av_with_flags(line, *status);
 		if (is_built_in(line_vector) == 0)
 			continue;
 		if (access(line_vector[0], X_OK) == 0)
-			execute_command(line_vector[0], line_vector, env);
+			execute_command(line_vector[0], line_vector, env, status);
 		else
 		{
 			if (new_path = check_access(line_vector[0], current))
 			{
 				free(line_vector[0]);
 				line_vector[0] = new_path;
-				execute_command(line_vector[0], line_vector, env);
+				execute_command(line_vector[0], line_vector, env, status);
 				
 			}
 		}
@@ -51,7 +51,7 @@ int main(int argc, char *argv[], char *env[])
 	return (0);
 }
 
-void execute_command(char *path, char **av, char **env)
+void execute_command(char *path, char **av, char **env, int *status)
 {
 	pid_t pid;
 
@@ -69,8 +69,7 @@ void execute_command(char *path, char **av, char **env)
 	}
 	else if (pid > 0)
 	{
-		int status;
-		waitpid(pid, &status, WUNTRACED);
+		waitpid(pid, status, WUNTRACED);
 	}
 }
 

@@ -2,7 +2,7 @@
 
 /*will edit betty soon*/
 
-char **get_av_with_flags(char *line)
+char **get_av_with_flags(char *line, int status)
 {
     char *line_cpy, *token, *cmd;
     char **av;
@@ -17,11 +17,11 @@ char **get_av_with_flags(char *line)
     av = malloc((c_count + 1) * sizeof(char *));
     token = strtok(line_cpy, " ");
     if (_strcmp("$$", token) == 0)
-        token = get_process_id();
+        cmd = get_process_id();
     else if (_strcmp("$?", token) == 0)
-        token = get_status(0);
-    
-    cmd = _strdup(token);
+        cmd = get_status(status);
+    else
+        cmd = _strdup(token);
     av[i++] = cmd;
     while (token != NULL)
     {
@@ -29,11 +29,11 @@ char **get_av_with_flags(char *line)
         if (token != NULL)
         {
             if (_strcmp("$$", token) == 0)
-                token = get_process_id();
+                cmd = get_process_id();
             else if (_strcmp("$?", token) == 0)
-                token = get_status(0);
-
-            cmd = _strdup(token);
+                cmd = get_status(status);
+            else
+                cmd = _strdup(token);
             av[i++] = cmd;
         }
         

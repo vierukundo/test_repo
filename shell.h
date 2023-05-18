@@ -49,7 +49,7 @@ char *_strdup(char *str);
 list_path *add_node(list_path **head, char *path);
 list_path *set_all_paths_to_list();
 size_t print_list(const list_path *p);
-char **get_av_with_flags(char *line);
+char **get_av_with_flags(char *line, int status);
 unsigned int char_count(char *str);
 char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
@@ -57,7 +57,7 @@ char *_strcpy(char *dest, char *src);
 /*====================================================================================*/
 char *num_to_char(int num);
 char *check_access(char *line_av_1, list_path *current);
-void execute_command(char *path, char **av, char **env);
+void execute_command(char *path, char **av, char **env, int *status);
 void print_env(char **line_vector);
 char* get_process_id();
 char* get_status(int n);
