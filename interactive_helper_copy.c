@@ -1,6 +1,6 @@
 #include "shell.h"
 
-char *get_command_from_user()
+char *get_command_from_user(list_path *current)
 {
 	ssize_t nread;
 	size_t n = 0;
@@ -11,6 +11,8 @@ char *get_command_from_user()
 	if(nread == EOF)
 	{
 		write(STDOUT_FILENO, "\n", 1);
+		free(line);
+		free_list(current);
 		exit(0);
 	}
 	if(line[0] == '\n' && nread == 1)

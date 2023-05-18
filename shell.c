@@ -26,7 +26,7 @@ int main(int argc, char *argv[], char *env[])
 		if (mode == NON_INTERACTIVE)
 			line = get_command_from_file(argv[1]);
 		else if (mode == INTERACTIVE)
-			line = get_command_from_user();
+			line = get_command_from_user(current);
 		if(!line)
 			continue;
 		is_exit(line, line_vector, current);
