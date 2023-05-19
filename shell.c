@@ -16,10 +16,14 @@ int main(int argc, char *argv[], char *env[])
 	current = set_all_paths_to_list();
 	mode = check_mode(argc);
 	if (mode != INTERACTIVE)
+	{
+		write(STDERR_FILENO, "im not interactive\n", 19);
 		return (0);
+	}
+		
 
 	if (mode == NON_INTERACTIVE)
-		check_file();
+		check_file(argv[1]);
 	while (++counter)
 	{
 		if (mode == NON_INTERACTIVE)
@@ -32,17 +36,19 @@ int main(int argc, char *argv[], char *env[])
 		handle_comments(line);
 		line_vector = get_av_with_flags(line, *status);
 		if (is_built_in(line_vector) == 0)
+		{
+			free(line);
+			free_vector(line_vector);
 			continue;
-		
+		}
 		if (access(line_vector[0], X_OK) == 0)
 			execute_command(line_vector[0], line_vector, env, status);
 		else
 		{
 			if (new_path = check_access(line_vector[0], current))
 			{
-				free(line_vector[0]);
-				line_vector[0] = new_path;
-				execute_command(line_vector[0], line_vector, env, status);
+				execute_command(new_path, line_vector, env, status);
+				free(new_path);
 			}
 			else
 			{
@@ -50,7 +56,6 @@ int main(int argc, char *argv[], char *env[])
 				*status = 127;
 			}
 		}
-
 		free(line);
 		free_vector(line_vector);
 	}

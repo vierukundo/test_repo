@@ -7,9 +7,10 @@
  */
 int check_mode(int argc)
 {
-	if(argc == 1)
+	
+	if(isatty(STDIN_FILENO) && argc == 1)
 		return (INTERACTIVE);
-	else if(argc == 2)
+	else if(!isatty(STDIN_FILENO) && argc == 2)
 		return (NON_INTERACTIVE);
 	return (ERROR);
 }

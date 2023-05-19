@@ -74,6 +74,6 @@ void is_exit(char *line, char **line_vector, list_path *current);
 char *get_command_from_file(char *file);
 char *get_command_from_user(list_path *current);
 int check_mode(int argc);
-void check_file();
+void check_file(char *file);
 void free_vector(char **v);
 #endif

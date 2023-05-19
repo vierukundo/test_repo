@@ -3,16 +3,14 @@
 /*
     betty
 */
-void check_file()
+void check_file(char *file)
 {
-    /*TODO*/
+    
 }
 
 char *get_command_from_file(char *file)
 {
-    /*
-        TODO
-    */
+    
 
     return (NULL);
 }
