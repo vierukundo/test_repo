@@ -26,11 +26,15 @@ int main(int argc, char *argv[], char *env[])
 			line = get_command_from_user();
 
 		is_exit(line);
+		handle_comments(line);
 		line_vector = get_av_with_flags(line);
 		if (is_built_in(line_vector) == 0)
 			continue;
+
 		if (access(line_vector[0], X_OK) == 0)
+		{
 			execute_command(line_vector[0], line_vector, env);
+		}
 		else
 		{
 			if (new_path = check_access(line_vector[0]))
@@ -40,7 +44,7 @@ int main(int argc, char *argv[], char *env[])
 				execute_command(line_vector[0], line_vector, env);
 			}
 		}
-	}
+		}
 	free(line);
 	return (0);
 }
@@ -81,26 +85,4 @@ char *check_access(char *line_av_1)
 		return (full_path);
 	else
 		return (NULL);
-}
-
-void execute_command(char *path, char **av, char **env)
-{
-	pid_t pid;
-
-	pid = fork();
-	if (pid == ERROR)
-	{
-		perror("fork");
-		exit(EXIT_FAILURE);
-	}
-	if (pid == 0)
-	{
-		execve(path, av, env);
-		perror("execve");
-		exit(EXIT_FAILURE);
-	}
-	else if (pid > 0)
-	{
-		wait(NULL);
-	}
 }

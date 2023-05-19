@@ -55,6 +55,13 @@ char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
 
 /*====================================================================================*/
+void handle_comments(char *input);
+//==
+void handle_semicolons(char *line);
+void execute_command_with_waitpid(char *path, char **av, char **env);
+int _setenv(const char *name, const char *value, int overwrite);
+int _unsetenv(const char *name);
+//==
 char *num_to_char(int num);
 char *check_access(char *line_av_1);
 void execute_command(char *path, char **av, char **env);

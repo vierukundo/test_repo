@@ -2,27 +2,25 @@
 
 void print_env(char **line_vector)
 {
-	
+
 	extern char **environ;
 	int i;
 
-	for (i=0; environ[i]!=NULL; i++) 
+	for (i = 0; environ[i] != NULL; i++)
 	{
-        printf("%s\n" ,environ[i]);
+		printf("%s\n", environ[i]);
 		fflush(stdout);
-    }
-	
+	}
 }
 
-char* get_status(int n)
+char *get_status(int n)
 {
 	char *status;
 	status = num_to_char(n);
 	return "0";
-	
 }
 
-char* get_process_id()
+char *get_process_id()
 {
 	char *ppid_s;
 	pid_t pid = getpid();
@@ -53,10 +51,11 @@ char *num_to_char(int num)
 {
 	/*count digits*/
 	int c = 0, tmp = num;
-    char* cp_num;
-    if (num == 0) {
-        c = 1;
-    }
+	char *cp_num;
+	if (num == 0)
+	{
+		c = 1;
+	}
 	else
 	{
 		while (tmp != 0)
@@ -65,9 +64,9 @@ char *num_to_char(int num)
 			c++;
 		}
 	}
-    
+
 	cp_num = malloc(sizeof(char) * (c + 1));
-	if(!cp_num)
+	if (!cp_num)
 	{
 		perror("malloc");
 		return (NULL);
@@ -76,10 +75,9 @@ char *num_to_char(int num)
 	while (c != 0)
 	{
 		c--;
-		cp_num[c] = '0' + num%10;
+		cp_num[c] = '0' + num % 10;
 		num /= 10;
 	}
 
-	
 	return (cp_num);
 }

@@ -20,7 +20,11 @@ char **get_av_with_flags(char *line)
         token = get_process_id();
     else if (_strcmp("$?", token) == 0)
         token = get_status(0);
-    
+    // else if (_strcmp("export", token) == 0)
+    //    token = _setenv();
+    // else if (_strcmp("export", token) == 0)
+    //      token = _unsetenv();
+    /* couldn't handle this :') */
     cmd = _strdup(token);
     av[i++] = cmd;
     while (token != NULL)
@@ -36,7 +40,7 @@ char **get_av_with_flags(char *line)
             cmd = _strdup(token);
             av[i++] = cmd;
         }
-        
+
     }
     av[i] = NULL;
     free(line_cpy);
