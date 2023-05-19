@@ -9,26 +9,24 @@
  */
 int main(int argc, char *argv[], char *env[])
 {
-	int mode, counter = 0, *status, t = 0;
+	int mode, counter = 0, *status, t = 0, non_int_count = 1;
 	char *line, **line_vector = NULL, *new_path;
 	list_path *current;
 	/*mode checking*/
 	current = set_all_paths_to_list();
 	mode = check_mode(argc);
 	status = &t;
-	if (mode != INTERACTIVE)
-	{
-		write(STDERR_FILENO, "im not interactive\n", 19);
-		return (0);
-	}
 		
 
 	if (mode == NON_INTERACTIVE)
 		check_file(argv[1]);
-	while (++counter)
+	while (++counter && non_int_count)
 	{
 		if (mode == NON_INTERACTIVE)
+		{
 			line = get_command_from_file(argv[1]);
+			non_int_count = 0;/*stop*/
+		}
 		else if (mode == INTERACTIVE)
 			line = get_command_from_user(current);
 		if(!line)
