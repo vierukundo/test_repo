@@ -17,7 +17,7 @@ char *get_status(int n)
 {
 	char *status;
 	status = num_to_char(n);
-	return (status);
+	return status;
 
 }
 
@@ -35,7 +35,7 @@ int is_built_in(char **line_vector)
 {
 	/*================================TODO===================*/
 	int i;
-	built_in_t built_in[] = {{"env", print_env};
+	built_in_t built_in[] = {{"env", print_env}};
 
 	for (i = 0; i < 1; i++)
 	{
