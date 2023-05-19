@@ -30,6 +30,7 @@ int main(int argc, char *argv[], char *env[])
 		if(!line) //edited
 			continue;
 		is_exit(line, line_vector, current);
+		handle_semicolons(line);
 		handle_comments(line);
 		line_vector = get_av_with_flags(line, *status);
 		if (is_built_in(line_vector) == 0)
