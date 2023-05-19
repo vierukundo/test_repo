@@ -55,6 +55,7 @@ char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
 
 /*====================================================================================*/
+void print_error(char *program_name , int counter,char *command);
 void handle_comments(char *input);
 //==
 void handle_semicolons(char *line);
