@@ -63,11 +63,12 @@ void execute_command(char *path, char **av, char **env, int *status)
 
 
 void free_vector(char** argv) {
-    if (argv == NULL) {
-        return;  // Nothing to free if argv is already NULL
+    char** curr;
+	if (argv == NULL) {
+        return;  
     }
 
-    char** curr = argv;
+    curr = argv;
     while (*curr != NULL) {
         free(*curr);
         curr++;

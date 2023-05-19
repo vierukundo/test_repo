@@ -27,10 +27,9 @@ int main(int argc, char *argv[], char *env[])
 			line = get_command_from_file(argv[1]);
 		else if (mode == INTERACTIVE)
 			line = get_command_from_user(current);
-		if(!line) //edited
+		if(!line)
 			continue;
 		is_exit(line, line_vector, current);
-		handle_semicolons(line);
 		handle_comments(line);
 		line_vector = get_av_with_flags(line, *status);
 		if (is_built_in(line_vector) == 0)
