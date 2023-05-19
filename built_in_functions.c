@@ -35,7 +35,7 @@ int is_built_in(char **line_vector)
 {
 	/*================================TODO===================*/
 	int i;
-	built_in_t built_in[] = {{"env", print_env}, {"setenv" , _setenv}, {"unsetenv", _unsetenv}};
+	built_in_t built_in[] = {{"env", print_env};
 
 	for (i = 0; i < 1; i++)
 	{
