@@ -17,7 +17,8 @@ char *get_status(int n)
 {
 	char *status;
 	status = num_to_char(n);
-	return "0";
+	return (status);
+
 }
 
 char *get_process_id()
@@ -34,7 +35,7 @@ int is_built_in(char **line_vector)
 {
 	/*================================TODO===================*/
 	int i;
-	built_in_t built_in[] = {{"env", print_env}};
+	built_in_t built_in[] = {{"env", print_env}, {"set" , _setenv}, {"export", _unsetenv}};
 
 	for (i = 0; i < 1; i++)
 	{

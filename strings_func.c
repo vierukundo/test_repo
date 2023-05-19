@@ -53,7 +53,7 @@ char *_strdup(char *str)
 	arr = malloc((sizeof(char) * len) + 1);
 	if (arr == NULL)
 		return (NULL);
-	arr[len];
+	arr[len] = '\0';
 	while (len--)
 		arr[len] = str[len];
 	return (arr);
