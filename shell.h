@@ -12,7 +12,7 @@
 #define INTERACTIVE 1
 #define NON_INTERACTIVE 0
 #define ERROR -1
-
+extern char **environ;
 /**
  * struct list_path - singly linked list
  * @path: string

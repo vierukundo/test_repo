@@ -9,12 +9,13 @@
  */
 int main(int argc, char *argv[], char *env[])
 {
-	int mode, counter = 0, *status;
+	int mode, counter = 0, *status, t = 0;
 	char *line, **line_vector = NULL, *new_path;
 	list_path *current;
 	/*mode checking*/
 	current = set_all_paths_to_list();
 	mode = check_mode(argc);
+	status = &t;
 	if (mode != INTERACTIVE)
 	{
 		write(STDERR_FILENO, "im not interactive\n", 19);
