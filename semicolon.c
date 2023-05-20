@@ -23,15 +23,13 @@ void execute_command_with_waitpid(char *path, char **av, char **env)
 void handle_semicolons(char *line)
 {
     char *token;
-    pid_t pid;
-
+    char *args[100];
+    int i;
     token = strtok(line, ";");
     while (token != NULL)
     {
         handle_comments(token);
-
-        char *args[100];
-        int i = 0;
+        i = 0;
         args[0] = strtok(token, " ");
         i = 0;
         while (args[i] != NULL && i < 99)
@@ -48,4 +46,3 @@ void handle_semicolons(char *line)
         token = strtok(NULL, ";");
     }
 }
-

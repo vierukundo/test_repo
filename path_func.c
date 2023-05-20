@@ -80,9 +80,8 @@ size_t print_list(const list_path *p)
 
 list_path *set_all_paths_to_list()
 {
-    char *path_variable, *path, *path_var_cpy, *token;
+    char *path_variable, *path_var_cpy, *token;
     list_path *paths_list;
-    int i = 0;
     paths_list = NULL;
     path_variable = _getenv("PATH");
     if (path_variable == NULL)

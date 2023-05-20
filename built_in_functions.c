@@ -1,9 +1,7 @@
 #include "shell.h"
 
-void print_env(char **line_vector)
+void print_env()
 {
-
-	
 	int i;
 
 	for (i = 0; environ[i] != NULL; i++)
@@ -31,21 +29,34 @@ char *get_process_id()
 	return (ppid_s);
 }
 
-int is_built_in(char **line_vector)
+int is_built_in(char * line, char **line_vector ,list_path *current, char *program_name , int counter, int *status)
 {
-	/*================================TODO===================*/
-	int i;
-	built_in_t built_in[] = {{"env", print_env}};
+	int i, n = -1;
+	char *built_in[] = {"env", "exit"};
 
-	for (i = 0; i < 1; i++)
+	for (i = 0; i < 2; i++)
 	{
-		if (_strcmp(built_in[i].command, line_vector[0]) == 0)
+		if (_strcmp(built_in[i], line_vector[0]) == 0)
 		{
-			built_in[i].f(line_vector);
-			return (0);
+			n = i;
+			break;
 		}
 	}
-	return (-1);
+	if(n == -1)
+		return (n);
+	
+	switch (n) {
+    case 0:
+        print_env(line_vector);
+        break;
+    case 1:
+        is_exit(line, line_vector, current, program_name, counter, status);
+        break;
+    default:
+        return (-1);
+        break;
+	}
+	return(0);
 }
 
 char *num_to_char(int num)

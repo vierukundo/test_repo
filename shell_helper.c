@@ -16,26 +16,71 @@ int check_mode(int argc)
 }
 
 
-void is_exit(char *line,char **line_vector, list_path *current)
-{
-
-	if (_strcmp(line, "exit") == 0)
+void is_exit(char *line,char **line_vector, list_path *current,
+		char *program_name, int counter, int *status)
+		{
+	int n;
+	if (_strcmp(line_vector[0], "exit") == 0)
 	{
-		free(line);
-		free_list(current);
-		exit(0);
+		if(line_vector[1] == NULL)
+		{
+			free(line);
+			free_list(current);
+			free_vector(line_vector);
+			exit(0);/*TODO status*/
+		}
+		else if(line_vector[1] != NULL )
+		{
+			if(_strlen(line_vector[1]) <= 9)
+			{
+				n = _atoi(line_vector[1]);
+				
+				if(n != -1)
+				{
+					free(line);
+					free_list(current);
+					free_vector(line_vector);
+					exit(n);
+				}
+				else
+				{
+					*status = EXIT_ERROR;
+					print_error(program_name, counter, line_vector[1], EXIT_ERROR);
+				}
+			}
+			else
+			{
+				*status = EXIT_ERROR;
+				print_error(program_name, counter, line_vector[1], EXIT_ERROR);
+			}
+			
+		}
+	}
+}
+int _atoi(char *s)
+{
+	unsigned int n, i;
+	char positive;
+
+	i = 0;
+	n = 0;
+	while (s[i] != '\0')
+	{
+		if (!((s[i] >= '0') && (s[i] <= '9')))
+		{
+			return(-1);
+		}
+		if (((s[i] >= '0') && (s[i] <= '9')))
+		{
+			n = (n * 10) + (s[i] - '0');
+		}
+		else if (s[i] == '+')
+			positive++;
+
+		i++;
 	}
 
-	/*
-	TODO
-	exit 10
-
-	ac ?
-	is_num
-	exit with status
-
-	*/
-
+return (n);
 }
 
 
@@ -81,14 +126,13 @@ void free_vector(char** argv) {
 char *check_access(char *line_av_1, list_path *current)
 {
 	char *full_path;
-	int i, found = 0, len;
-	pid_t pid;
+	int found = 0, len;
 
 	if (current == NULL)
 		return (NULL);
 	while (current)
 	{
-		len = _strlen(current->path) + _strlen(line_av_1) + 2; // to calculate the length of the full path
+		len = _strlen(current->path) + _strlen(line_av_1) + 2; /* to calculate the length of the full path*/
 		if (len > 1024)
 		{
 			write(STDERR_FILENO, "ERROR: Path too long\n", 21);
@@ -98,7 +142,7 @@ char *check_access(char *line_av_1, list_path *current)
 		_strcpy(full_path,current->path);
 		_strcat(full_path, "/");
 		_strcat(full_path, line_av_1);
-		if (access(full_path, X_OK) == 0)
+		if (access(full_path, F_OK) == 0)
 		{
 			found = 1;
 			break;

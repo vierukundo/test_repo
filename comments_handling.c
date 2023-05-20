@@ -35,25 +35,27 @@ void handle_comments(char *line)
  *
  */
 
-// void handle_comments(char *line)
-// {
-//     int x;
-//     int hash = -1;
-//     int len = strlen(line);
+/*
+void handle_comments(char *line)
+ {
+     int x;
+     int hash = -1;
+     int len = strlen(line);
 
-//     /* Find the the first '#' character */
-//     for (x = 0; x < len; x++)
-//     {
-//         if (line[x] == '#')
-//         {
-//             hash = x;
-//             break;
-//         }
-//     }
+     Find the the first '#' character
+     for (x = 0; x < len; x++)
+     {
+         if (line[x] == '#')
+         {
+            hash = x;
+             break;
+         }
+    }
 
-//     /* Remove what's after the '#' character */
-//     if (hash != -1)
-//     {
-//         line[hash] = '\0';
-//     }
-//  }
+     Remove what's after the '#' character
+     if (hash != -1)
+    {
+         line[hash] = '\0';
+     }
+  }
+*/

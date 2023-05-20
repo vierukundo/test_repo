@@ -60,17 +60,6 @@ void exit_check(int nread, char *exit_cmd)
     }
 }
 
-int has_access(char *cmd)
-{
-    char *path;
-
-    path = _getenv("PATH");
-    if (path == NULL)
-        return (-1); /*var PATH not exists*/
-
-    return (-1); /*does not have access*/
-}
-
 char *_getenv(const char *name)
 {
     int i = 0, j = 0;

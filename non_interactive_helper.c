@@ -5,7 +5,7 @@
 */
 void check_file(char *file)
 {
-    
+    (void)(file);
 }
 
 char *get_command_from_file(char *file)
