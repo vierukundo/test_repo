@@ -29,44 +29,41 @@ int main(int argc, char *argv[], char *env[])
 			line = get_command_from_user(current);
 		if(!line)
 			continue;
-		handle_comments(line);
 		line_vector = get_av_with_flags(line, *status);
 		if(is_dir(line_vector[0]) == 0)
 		{
 			print_error(argv[0] , counter, line_vector[0], PERMISSION_DENIED);
 			*status = PERMISSION_DENIED;
-			free(line);
-			free_vector(line_vector);
+			free_l_v(line, line_vector);
 			continue;
 		}
-		if (is_built_in(line, line_vector, current, argv[0], counter, status) == 0)
-		{
-			free(line);
-			free_vector(line_vector);
-			continue;
-		}
-		if (access(line_vector[0], F_OK) == 0)
-			execute_command(line_vector[0], line_vector, env, status);
-		else
-		{
-			if ((new_path = check_access(line_vector[0], current)))
+		if (is_built_in(line, line_vector, current, argv[0], counter, status) != 0)	
 			{
-				execute_command(new_path, line_vector, env, status);
-				free(new_path);
+			if (access(line_vector[0], X_OK) == 0)
+				execute_command(line_vector[0], line_vector, env, status);
+				else
+				{
+					if ((new_path = check_access(line_vector[0], current)))
+					{
+						execute_command(new_path, line_vector, env, status);
+						free(new_path);
+					}
+					else
+					{
+						print_error(argv[0] , counter, line_vector[0], NOT_FOUND);
+						*status = NOT_FOUND;
+					}
+				}
 			}
-			else
-			{
-				
-				print_error(argv[0] , counter, line_vector[0], NOT_FOUND);
-				*status = NOT_FOUND;
-			}
-		}
-		free(line);
-		free_vector(line_vector);
+		free_l_v(line, line_vector);
 	}
 	return (0);
 }
-
+void free_l_v(char * line, char ** line_vector)
+{
+	free(line);
+	free_vector(line_vector);
+}
 
 int is_dir(char *line)
 {
@@ -74,11 +71,12 @@ int is_dir(char *line)
 
     if (stat(line, &st) == 0)
 	 {
-        if (S_ISDIR(st.st_mode)) {
-            return 0;
+        if (S_ISDIR(st.st_mode)) 
+		{
+            return (0);
         }
     }
-	return -1;
+	return (-1);
 }
 
 void print_error(char *program_name , int counter,char *command, int type_of_error)

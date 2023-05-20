@@ -27,14 +27,13 @@ void is_exit(char *line,char **line_vector, list_path *current,
 			free(line);
 			free_list(current);
 			free_vector(line_vector);
-			exit(0);/*TODO status*/
+			exit(*status);/*TODO status*/
 		}
 		else if(line_vector[1] != NULL )
 		{
 			if(_strlen(line_vector[1]) <= 9)
 			{
 				n = _atoi(line_vector[1]);
-				
 				if(n != -1)
 				{
 					free(line);
@@ -103,7 +102,9 @@ void execute_command(char *path, char **av, char **env, int *status)
 	}
 	else if (pid > 0)
 	{
+		
 		waitpid(pid, status, WUNTRACED);
+		*status  = WEXITSTATUS(*status);
 	}
 }
 
@@ -142,7 +143,7 @@ char *check_access(char *line_av_1, list_path *current)
 		_strcpy(full_path,current->path);
 		_strcat(full_path, "/");
 		_strcat(full_path, line_av_1);
-		if (access(full_path, F_OK) == 0)
+		if (access(full_path, X_OK) == 0)
 		{
 			found = 1;
 			break;

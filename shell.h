@@ -55,6 +55,7 @@ char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
 
 /*====================================================================================*/
+void free_l_v(char * line, char ** line_vector);
 int is_dir(char *line);
 int _atoi(char *s);
 void is_exit(char *line,char **line_vector, list_path *current,
@@ -70,7 +71,7 @@ int _unsetenv(const char *name);
 char *num_to_char(int num);
 char *check_access(char *line_av_1, list_path *current);
 void execute_command(char *path, char **av, char **env, int *status);
-void print_env();
+void print_env(int *status);
 char* get_process_id();
 char* get_status(int n);
 int is_built_in(char * line, char **line_vector ,list_path *current, char *program_name , int counter, int *status);

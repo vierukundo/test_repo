@@ -1,6 +1,6 @@
 #include "shell.h"
 
-void print_env()
+void print_env(int *status)
 {
 	int i;
 
@@ -9,6 +9,7 @@ void print_env()
 		printf("%s\n", environ[i]);
 		fflush(stdout);
 	}
+	*status = 0;/*success*/
 }
 
 char *get_status(int n)
@@ -47,7 +48,7 @@ int is_built_in(char * line, char **line_vector ,list_path *current, char *progr
 	
 	switch (n) {
     case 0:
-        print_env(line_vector);
+        print_env(status);
         break;
     case 1:
         is_exit(line, line_vector, current, program_name, counter, status);
