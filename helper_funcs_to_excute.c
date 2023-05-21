@@ -10,6 +10,7 @@ char **get_av_with_flags(char *line, int status)
     unsigned int c_count;
     
     handle_comments(line);
+    handle_semicolons(line);
     line_cpy = _strdup(line);
     if (line_cpy == NULL)
         return (NULL); /*can't cpy*/
