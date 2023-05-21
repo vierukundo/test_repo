@@ -16,7 +16,7 @@ char **get_av_with_flags(char *line, int status)
 
     c_count = char_count(line_cpy);
     av = malloc((c_count + 1) * sizeof(char *));
-    token = strtok(line_cpy, " ");
+    token = strtok(line_cpy, TOK_D);
     if (_strcmp("$$", token) == 0)
         cmd = get_process_id();
     else if (_strcmp("$?", token) == 0)
@@ -26,7 +26,7 @@ char **get_av_with_flags(char *line, int status)
     av[i++] = cmd;
     while (token != NULL)
     {
-        token = strtok(NULL, " ");
+        token = strtok(NULL, TOK_D);
         if (token != NULL)
         {
             if (_strcmp("$$", token) == 0)
