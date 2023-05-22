@@ -35,13 +35,6 @@ typedef struct list_path
 	struct list_path *next;
 } list_path;
 
-/**
- * struct built_in_t - Struct built_in_t
- *
- * @command: command string
- * @f: function
- */
-
 int _strcmp(char *s1, char *s2);
 char *_getenv(const char *name);
 void free_list(list_path *head);
@@ -62,12 +55,13 @@ char **text_to_vector(char *text);
 char **file_non_interactive(char *file_name, char *program_name);
 char **piped_non_interactive();
 char **get_commands(int mode, char *file_name, char *program_name);
-void free_l_v(char * line, char ** line_vector);
+void free_l_v(char *line, char **line_vector);
 int is_dir(char *line);
 int _atoi(char *s);
-void is_exit(char *line,char **line_vector, list_path *current,
+void is_exit(char *line, char **line_vector, list_path *current,
 		char *program_name, int counter, int *status);
-void print_error(char *program_name , int counter,char *command, int type_of_error);
+void print_error(char *program_name, int counter,
+		char *command, int type_of_error);
 void handle_comments(char *input);
 /*==*/
 void handle_semicolons(char *line);
@@ -77,10 +71,12 @@ char *num_to_char(int num);
 char *check_access(char *line_av_1, list_path *current);
 void execute_command(char *path, char **av, char **env, int *status);
 void print_env(int *status);
-char* get_process_id();
-char* get_status(int n);
-int is_built_in(char * line, char **line_vector ,list_path *current, char *program_name , int counter, int *status);
-void print_error(char *program_name , int counter,char *command, int type_of_error);
+char *get_process_id();
+char *get_status(int n);
+int is_built_in(char *line, char **line_vector, list_path *current,
+		char *program_name, int counter, int *status);
+void print_error(char *program_name, int counter,
+		char *command, int type_of_error);
 char *get_command_from_file(char *file);
 char *get_command_from_user(list_path *current);
 int check_mode(int argc);
