@@ -14,7 +14,7 @@ int check_mode(int argc)
 		return (INTERACTIVE);
 	if ((!isatty(STDIN_FILENO) && argc == 1))
 		return (NON_INTERACTIVE_PIPED);
-	if ((argc == 2))
+	if ((argc >= 1))
 		return (NON_INTERACTIVE_FILE);
 
 	return (ERROR);
@@ -160,4 +160,3 @@ void free_vector(char **argv)
 
 	free(argv);
 }
-

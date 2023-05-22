@@ -83,7 +83,6 @@ void exit_check(int nread, char *exit_cmd)
 char *_getenv(const char *name)
 {
 	int i = 0, j = 0;
-	extern char **environ;
 
 	if (name == NULL)
 		return (NULL);

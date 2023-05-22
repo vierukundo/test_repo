@@ -55,11 +55,14 @@ unsigned int char_count(char *str, char c);
 char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
 
-/*====================================================================================*/
+/*==========================================================================*/
+void print_cant_open(char *program_name , int counter,char *file_name);
+void is_not_built_in(char **line_vector, char *env[], int *status,
+						int counter, list_path *current, char *argv[]);
 char **text_to_vector(char *text);
-char **file_non_interactive(char *file_name);
+char **file_non_interactive(char *file_name, char *program_name);
 char **piped_non_interactive();
-char **get_commands(int mode, char *file_name);
+char **get_commands(int mode, char *file_name, char *program_name);
 void free_l_v(char * line, char ** line_vector);
 int is_dir(char *line);
 int _atoi(char *s);
