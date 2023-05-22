@@ -1,5 +1,10 @@
 #include "shell.h"
 
+/**
+ * get_command_from_user - .
+ * @current: .
+ * Return: .
+ */
 char *get_command_from_user(list_path *current)
 {
 	ssize_t nread;
@@ -16,7 +21,7 @@ char *get_command_from_user(list_path *current)
 		exit(0);
 	}
 
-	if(line[0] == '\n' && nread == 1)
+	if (line[0] == '\n' && nread == 1)
 	{
 		free(line);
 		return (NULL);

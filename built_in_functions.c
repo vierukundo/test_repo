@@ -1,5 +1,9 @@
 #include "shell.h"
-
+/**
+ * print_env - .
+ * @status: .
+ * Return: void
+ */
 void print_env(int *status)
 {
 	int i;
@@ -11,15 +15,24 @@ void print_env(int *status)
 	}
 	*status = 0;/*success*/
 }
-
+/**
+ * get_status - .
+ * @n: .
+ * Return: .
+ */
 char *get_status(int n)
 {
 	char *status;
+
 	status = num_to_char(n);
-	return status;
+	return (status);
 
 }
 
+/**
+ * get_process_id - .
+ * Return: .
+ */
 char *get_process_id()
 {
 	char *ppid_s;
@@ -29,8 +42,18 @@ char *get_process_id()
 
 	return (ppid_s);
 }
-
-int is_built_in(char * line, char **line_vector ,list_path *current, char *program_name , int counter, int *status)
+/**
+ * is_built_in - .
+ * @line: .
+ * @line_vector: .
+ * @current: .
+ * @program_name: .
+ * @counter: .
+ * @status: .
+ * Return: .
+ */
+int is_built_in(char *line, char **line_vector, list_path *current,
+		char *program_name, int counter, int *status)
 {
 	int i, n = -1;
 	char *built_in[] = {"env", "exit"};
@@ -43,28 +66,33 @@ int is_built_in(char * line, char **line_vector ,list_path *current, char *progr
 			break;
 		}
 	}
-	if(n == -1)
+	if (n == -1)
 		return (n);
-	
-	switch (n) {
-    case 0:
-        print_env(status);
-        break;
-    case 1:
-        is_exit(line, line_vector, current, program_name, counter, status);
-        break;
-    default:
-        return (-1);
-        break;
-	}
-	return(0);
-}
 
+	switch (n)
+	{
+		case 0:
+			print_env(status);
+			break;
+		case 1:
+			is_exit(line, line_vector, current, program_name, counter, status);
+			break;
+		default:
+			return (-1);
+	}
+	return (0);
+}
+/**
+ * num_to_char - .
+ * @num: .
+ * Return: .
+ */
 char *num_to_char(int num)
 {
 	/*count digits*/
 	int c = 0, tmp = num;
 	char *cp_num;
+
 	if (num == 0)
 	{
 		c = 1;

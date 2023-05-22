@@ -27,7 +27,7 @@ int main(int argc, char *argv[], char *env[])
 			{
 				break;
 			}
-				
+
 		}
 		else if (mode == NON_INTERACTIVE_FILE)
 			line = get_command_from_file(argv[1]);
@@ -43,27 +43,27 @@ int main(int argc, char *argv[], char *env[])
 			free_l_v(line, line_vector);
 			continue;
 		}
-		if (is_built_in(line, line_vector, current, argv[0], counter, status) != 0)	
-			{
+		if (is_built_in(line, line_vector, current, argv[0], counter, status) != 0)
+		{
 			if (access(line_vector[0], X_OK) == 0)
 				execute_command(line_vector[0], line_vector, env, status);
+			else
+			{
+				if ((new_path = check_access(line_vector[0], current)))
+				{
+					execute_command(new_path, line_vector, env, status);
+					free(new_path);
+				}
 				else
 				{
-					if ((new_path = check_access(line_vector[0], current)))
-					{
-						execute_command(new_path, line_vector, env, status);
-						free(new_path);
-					}
-					else
-					{
-						print_error(argv[0] , counter, line_vector[0], NOT_FOUND);
-						*status = NOT_FOUND;
-					}
+					print_error(argv[0] , counter, line_vector[0], NOT_FOUND);
+					*status = NOT_FOUND;
 				}
 			}
+		}
 		free_l_v(line, line_vector);
 	}
-	
+
 	exit(*status);
 }
 
@@ -77,13 +77,13 @@ int is_dir(char *line)
 {
 	struct stat st;
 
-    if (stat(line, &st) == 0)
-	 {
-        if (S_ISDIR(st.st_mode)) 
+	if (stat(line, &st) == 0)
+	{
+		if (S_ISDIR(st.st_mode))
 		{
-            return (0);
-        }
-    }
+			return (0);
+		}
+	}
 	return (-1);
 }
 

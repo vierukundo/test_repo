@@ -1,46 +1,57 @@
 #include "shell.h"
 
-/*
- * check_mode - check mode of the program
+/**
+ * check_mode - .
  * @argc: arguements count
- * Return : mode
+ * Return: mode
  */
 int check_mode(int argc)
 {
 	struct stat stdin_stat;
 
-    fstat(STDIN_FILENO, &stdin_stat);
-	if(isatty(STDIN_FILENO) && argc == 1)
+	fstat(STDIN_FILENO, &stdin_stat);
+	if (isatty(STDIN_FILENO) && argc == 1)
 		return (INTERACTIVE);
-	if((!isatty(STDIN_FILENO) && argc == 1))
+	if ((!isatty(STDIN_FILENO) && argc == 1))
 		return (NON_INTERACTIVE_PIPED);
-	if((argc == 2))
+	if ((argc == 2))
 		return (NON_INTERACTIVE_FILE);
-	
+
 	return (ERROR);
 }
 
+/**
+ * is_exit - .
+ * @line: .
+ * @line_vector: .
+ * @current: .
+ * @program_name: .
+ * @counter: .
+ * @status: .
+ * Return: void
+ */
 
-void is_exit(char *line,char **line_vector, list_path *current,
+void is_exit(char *line, char **line_vector, list_path *current,
 		char *program_name, int counter, int *status)
-		{
+{
 	int n;
+
 	if (_strcmp(line_vector[0], "exit") == 0)
 	{
-		if(line_vector[1] == NULL)
+		if (line_vector[1] == NULL)
 		{
-			
+
 			free(line);
 			free_list(current);
 			free_vector(line_vector);
 			exit(*status);
 		}
-		else if(line_vector[1] != NULL )
+		else if (line_vector[1] != NULL)
 		{
-			if(_strlen(line_vector[1]) <= 9)
+			if (_strlen(line_vector[1]) <= 9)
 			{
 				n = _atoi(line_vector[1]);
-				if(n != -1)
+				if (n != -1)
 				{
 					free(line);
 					free_list(current);
@@ -58,10 +69,16 @@ void is_exit(char *line,char **line_vector, list_path *current,
 				*status = EXIT_ERROR;
 				print_error(program_name, counter, line_vector[1], EXIT_ERROR);
 			}
-			
+
 		}
 	}
 }
+/**
+ * _atoi - .
+ * @s: .
+ * Return: .
+ *
+ */
 int _atoi(char *s)
 {
 	unsigned int n, i;
@@ -73,7 +90,7 @@ int _atoi(char *s)
 	{
 		if (!((s[i] >= '0') && (s[i] <= '9')))
 		{
-			return(-1);
+			return (-1);
 		}
 		if (((s[i] >= '0') && (s[i] <= '9')))
 		{
@@ -85,10 +102,17 @@ int _atoi(char *s)
 		i++;
 	}
 
-return (n);
+	return (n);
 }
 
-
+/**
+ * execute_command - .
+ * @path: .
+ * @av: .
+ * @env: .
+ * @status: .
+ * Return: void
+ */
 
 void execute_command(char *path, char **av, char **env, int *status)
 {
@@ -108,60 +132,32 @@ void execute_command(char *path, char **av, char **env, int *status)
 	}
 	else if (pid > 0)
 	{
-		
+
 		waitpid(pid, status, WUNTRACED);
 		*status  = WEXITSTATUS(*status);
 	}
 }
 
+/**
+ * free_vector - .
+ * @argv: .
+ * Return: void
+ */
 
-void free_vector(char** argv) {
-    char** curr;
-	if (argv == NULL) {
-        return;  
-    }
-
-    curr = argv;
-    while (*curr != NULL) {
-        free(*curr);
-        curr++;
-    }
-
-    free(argv);
-}
-
-char *check_access(char *line_av_1, list_path *current)
+void free_vector(char **argv)
 {
-	char *full_path;
-	int found = 0, len;
+	char **curr;
 
-	if (current == NULL)
-		return (NULL);
-	while (current)
+	if (argv == NULL)
+		return;
+
+	curr = argv;
+	while (*curr != NULL)
 	{
-		len = _strlen(current->path) + _strlen(line_av_1) + 2; /* to calculate the length of the full path*/
-		if (len > 1024)
-		{
-			write(STDERR_FILENO, "ERROR: Path too long\n", 21);
-			continue;
-		}
-		full_path = (char *)malloc(len * sizeof(char));
-		_strcpy(full_path,current->path);
-		_strcat(full_path, "/");
-		_strcat(full_path, line_av_1);
-		if (access(full_path, X_OK) == 0)
-		{
-			found = 1;
-			break;
-		}
-		else
-			free(full_path);
-
-		current = current->next;
+		free(*curr);
+		curr++;
 	}
-	if (found)
-		return (full_path);
 
-	else
-			return (NULL);
+	free(argv);
 }
+
