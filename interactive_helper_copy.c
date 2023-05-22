@@ -30,3 +30,13 @@ char *get_command_from_user(list_path *current)
 
 	return (line);
 }
+/**
+ * get_command_from_file - .
+ * @file: .
+ * Return: .
+ */
+
+char *get_command_from_file(char *file)
+{
+	return (file);
+}
