@@ -54,31 +54,6 @@ void free_list(list_path *head)
 }
 
 /**
- * print_list - print list of strings
- * @p: refrance of list_t "linked list of strings"
- * Return: list size
- */
-size_t print_list(const list_path *p)
-{
-	int size;
-
-	size = 0;
-	if (p == NULL)
-		return (0);
-
-	while (p)
-	{
-		if (p->path == NULL)
-			printf("[0] (nil)\n");
-		else
-			printf("[%d] %s\n", p->len, p->path);
-		p = p->next;
-		size++;
-	}
-	return (size);
-}
-
-/**
  * set_all_paths_to_list - .
  * Return: .
  */

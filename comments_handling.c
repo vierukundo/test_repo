@@ -6,7 +6,7 @@
  */
 void handle_comments(char *line)
 {
-	int len = strlen(line);
+	int len = _strlen(line);
 	int x = 0;
 	int _strating = 0;
 
@@ -33,4 +33,3 @@ void handle_comments(char *line)
 		}
 	}
 }
-

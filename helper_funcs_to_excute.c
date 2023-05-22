@@ -24,6 +24,12 @@ char **get_av_with_flags(char *line, int status)
 	c_count = char_count(line_cpy, ' ');
 	av = malloc((c_count + 1) * sizeof(char *));
 	token = strtok(line_cpy, TOK_D);
+	if(token == NULL)
+	{
+		free(av);
+		free(line_cpy);
+		return NULL;
+	}
 	if (_strcmp("$$", token) == 0)
 		cmd = get_process_id();
 	else if (_strcmp("$?", token) == 0)
@@ -116,6 +122,19 @@ unsigned int char_count(char *str, char c)
 	while (*str != '\0')
 	{
 		if (*str != c && *(str + 1) == c)
+			count++;
+		str++;
+	}
+	return (count + 1);
+}
+
+unsigned int char_count_piped(char *str, char c)
+{
+	unsigned int count = 0;
+
+	while (*str != '\0')
+	{
+		if (*str != c)
 			count++;
 		str++;
 	}

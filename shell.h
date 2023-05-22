@@ -47,15 +47,14 @@ char *_getenv(const char *name);
 void free_list(list_path *head);
 int _strlen(char *s);
 char *_strdup(char *str);
-list_path *add_node(list_path **head, char *path);
-list_path *set_all_paths_to_list();
-size_t print_list(const list_path *p);
-char **get_av_with_flags(char *line, int status);
-unsigned int char_count(char *str, char c);
 char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
-
+list_path *add_node(list_path **head, char *path);
+list_path *set_all_paths_to_list();
+char **get_av_with_flags(char *line, int status);
+unsigned int char_count(char *str, char c);
 /*==========================================================================*/
+unsigned int char_count_piped(char *str, char c);
 void print_cant_open(char *program_name , int counter,char *file_name);
 void is_not_built_in(char **line_vector, char *env[], int *status,
 						int counter, list_path *current, char *argv[]);
@@ -73,8 +72,6 @@ void handle_comments(char *input);
 /*==*/
 void handle_semicolons(char *line);
 void execute_command_with_waitpid(char *path, char **av, char **env);
-int _setenv(const char *name, const char *value, int overwrite);
-int _unsetenv(const char *name);
 /*====*/
 char *num_to_char(int num);
 char *check_access(char *line_av_1, list_path *current);
@@ -87,6 +84,5 @@ void print_error(char *program_name , int counter,char *command, int type_of_err
 char *get_command_from_file(char *file);
 char *get_command_from_user(list_path *current);
 int check_mode(int argc);
-void check_file(char *file);
 void free_vector(char **v);
 #endif

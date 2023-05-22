@@ -1,30 +1,4 @@
 #include "shell.h"
-/**
- * check_file - .
- * @file: .
- * Return: void
- */
-void check_file(char *file)
-{
-	struct stat fileStat;
-
-	if (stat(file, &fileStat) == 0)
-	{
-		printf("File Size: %ld bytes\n", fileStat.st_size);
-		printf("File Permissions: %o\n", fileStat.st_mode);
-		printf("File Inode: %lu\n", fileStat.st_ino);
-
-
-
-		if (S_ISREG(fileStat.st_mode))
-			printf("File is a regular file.\n");
-		if (S_ISDIR(fileStat.st_mode))
-			printf("File is a directory.\n");
-	}
-	else
-		printf("Failed to retrieve file information.\n");
-
-}
 
 /**
  * get_commands - .
@@ -67,7 +41,11 @@ char **piped_non_interactive()
 		perror("read");
 		exit(ERROR);
 	}
-	b[totalchar - 1] = '\0';
+	if(totalchar > 2048)
+		b[2048 - 1] = '\0';
+	else
+		b[totalchar - 1] = '\0';
+
 	text = malloc(sizeof(char) * (totalchar));
 	if (!text)
 		return (NULL);
@@ -93,7 +71,7 @@ char **text_to_vector(char *text)
 	text_cpy = _strdup(text);
 	if (text_cpy == NULL)
 		return (NULL);
-	c_count = char_count(text_cpy, '\n');
+	c_count = char_count_piped(text_cpy, '\n');
 	lines = malloc(c_count * sizeof(char *));
 	token = strtok(text_cpy, "\n");
 	cmd = _strdup(token);

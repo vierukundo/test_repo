@@ -27,13 +27,16 @@ int main(int argc, char *argv[], char *env[])
 			else
 				break;
 		}
-		else if (mode == NON_INTERACTIVE_FILE)
-			line = get_command_from_file(argv[1]);
 		else if (mode == INTERACTIVE)
 			line = get_command_from_user(current);
 		if (!line)
 			continue;
 		line_vector = get_av_with_flags(line, *status);
+		if (!line_vector)
+		{
+			free(line);
+			continue;
+		}
 		if (is_dir(line_vector[0]) == 0)
 		{
 			print_error(argv[0], counter, line_vector[0], PERMISSION_DENIED);
