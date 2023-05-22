@@ -10,18 +10,24 @@
 int main(int argc, char *argv[], char *env[])
 {
 	int mode, counter = 0, *status, t = 0, non_int_count = 1;
-	char *line, **line_vector = NULL, *new_path;
+	char *line, **line_vector = NULL, *new_path, **lines;
 	list_path *current;
 	/*mode checking*/
-	current = set_all_paths_to_list();
 	mode = check_mode(argc);
+	lines = get_commands(mode, argv[1]);
+	current = set_all_paths_to_list();
 	status = &t;
 	while (++counter && non_int_count)
 	{
-		if (mode == NON_INTERACTIVE_PIPED)
+		if (mode == NON_INTERACTIVE_PIPED || mode == NON_INTERACTIVE_FILE )
 		{
-			line = get_command_from_pipe();
-			non_int_count = 0;/*stop*/
+			if(lines[counter - 1])
+				line = lines[counter - 1];
+			else
+			{
+				break;
+			}
+				
 		}
 		else if (mode == NON_INTERACTIVE_FILE)
 			line = get_command_from_file(argv[1]);
@@ -57,28 +63,10 @@ int main(int argc, char *argv[], char *env[])
 			}
 		free_l_v(line, line_vector);
 	}
+	
 	exit(*status);
 }
 
-char *get_command_from_pipe()
-{
-	char input[1024];
-    ssize_t bytesRead;
-	char* command;
-	
-    bytesRead = read(STDIN_FILENO, input, 1024);
-	if(bytesRead == -1)
-		return (NULL);
-
-	input[bytesRead - 1] = '\0';
-    command = strtok(input, " ");
-	command = _strdup(command);
-	if (!command)
-		return (NULL);
-	
-	return command;
-	
-}
 void free_l_v(char * line, char ** line_vector)
 {
 	free(line);

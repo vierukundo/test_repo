@@ -10,12 +10,11 @@ int check_mode(int argc)
 	struct stat stdin_stat;
 
     fstat(STDIN_FILENO, &stdin_stat);
-	
 	if(isatty(STDIN_FILENO) && argc == 1)
 		return (INTERACTIVE);
-	if((!isatty(STDIN_FILENO) || S_ISFIFO(stdin_stat.st_mode)) && argc == 1)
+	if((!isatty(STDIN_FILENO) && argc == 1))
 		return (NON_INTERACTIVE_PIPED);
-	if((!isatty(STDIN_FILENO) && argc == 2))
+	if((argc == 2))
 		return (NON_INTERACTIVE_FILE);
 	
 	return (ERROR);
@@ -30,10 +29,11 @@ void is_exit(char *line,char **line_vector, list_path *current,
 	{
 		if(line_vector[1] == NULL)
 		{
+			
 			free(line);
 			free_list(current);
 			free_vector(line_vector);
-			exit(*status);/*TODO status*/
+			exit(*status);
 		}
 		else if(line_vector[1] != NULL )
 		{

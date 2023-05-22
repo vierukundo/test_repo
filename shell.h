@@ -8,7 +8,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
-
+#include <fcntl.h>
 /*my macros*/
 #define INTERACTIVE 1
 #define NON_INTERACTIVE_FILE 0
@@ -51,12 +51,15 @@ list_path *add_node(list_path **head, char *path);
 list_path *set_all_paths_to_list();
 size_t print_list(const list_path *p);
 char **get_av_with_flags(char *line, int status);
-unsigned int char_count(char *str);
+unsigned int char_count(char *str, char c);
 char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
 
 /*====================================================================================*/
-char *get_command_from_pipe();
+char **text_to_vector(char *text);
+char **file_non_interactive(char *file_name);
+char **piped_non_interactive();
+char **get_commands(int mode, char *file_name);
 void free_l_v(char * line, char ** line_vector);
 int is_dir(char *line);
 int _atoi(char *s);
