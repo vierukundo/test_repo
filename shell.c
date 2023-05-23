@@ -44,7 +44,8 @@ int main(int argc, char *argv[], char *env[])
 			free_l_v(line, line_vector);
 			continue;
 		}
-		if (is_built_in(line, line_vector, current, argv[0], counter, status, NULL) != 0)
+		if (is_built_in(line, line_vector, current,
+			argv[0], counter, status, NULL) != 0)
 			is_not_built_in(line_vector, env, status, counter, current, argv);
 		free_l_v(line, line_vector);
 	}
@@ -71,13 +72,13 @@ size_t print_list(const list_path *p)
 			printf("[0] (nil)\n");
 			fflush(stdout);
 		}
-			
+
 		else
 		{
 			printf("[%d] %s\n", p->len, p->path);
 			fflush(stdout);
 		}
-			
+
 		p = p->next;
 		size++;
 	}
@@ -86,30 +87,26 @@ size_t print_list(const list_path *p)
 
 
 /**
- * print_list - print list of strings
+ * set_list_env - print list of strings
  * @p: refrance of list_t "linked list of strings"
  * Return: list size
  */
 void set_list_env(list_path *p)
 {
 	/*
-	
-
-	Freeeeeeeeeeeeeeeeeeeeee
-	
-	
-	*/
+	*Freeeeeeeeeeeeeeeeeeeeee
+	 */
 	int size;
 	int list_size;
 	char **env;
-	size = 0;
 
+	size = 0;
 	if (p == NULL)
 		return;
 	/*get env count*/
 	list_size = env_list_len(p);
 	env = malloc(sizeof(char *) * (list_size));
-	if(env == NULL)
+	if (env == NULL)
 	{
 		perror("dont have size for env");
 		return;
@@ -117,19 +114,19 @@ void set_list_env(list_path *p)
 	while (p)
 	{
 		/*reverce here*/
-		if(p->path != NULL)
+		if (p->path != NULL)
 		{
 			env[size++] = p->path;
 			p = p->next;
 		}
-			
+
 	}
 	environ = env;
 }
 
 
 /**
- * print_list - print list of strings
+ * env_list_env - print list of strings
  * @p: refrance of list_t "linked list of strings"
  * Return: list size
  */
@@ -143,15 +140,15 @@ size_t env_list_len(const list_path *p)
 
 	while (p)
 	{
-		
+
 		p = p->next;
 		size++;
 	}
-	if(size - 2 > 0)
+	if (size - 2 > 0)
 		return (size - 2);
 	else
 		return (0);
-}	
+}
 /**
  * is_not_built_in - Entry point to the shell
  * @line_vector: arguements count
@@ -162,7 +159,7 @@ size_t env_list_len(const list_path *p)
  * @argv: environment vector
  */
 void is_not_built_in(char **line_vector, char *env[], int *status,
-						int counter, list_path *current, char *argv[])
+		int counter, list_path *current, char *argv[])
 {
 	char *new_path;
 

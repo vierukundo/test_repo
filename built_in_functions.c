@@ -50,6 +50,7 @@ char *get_process_id()
  * @program_name: .
  * @counter: .
  * @status: .
+ * @env_list: .
  * Return: .
  */
 int is_built_in(char *line, char **line_vector, list_path *current,
@@ -75,7 +76,8 @@ int is_built_in(char *line, char **line_vector, list_path *current,
 			print_env(status);
 			break;
 		case 1:
-			is_exit(line, line_vector, current, program_name, counter, status, env_list);
+			is_exit(line, line_vector, current, program_name,
+					counter, status, env_list);
 			break;
 		case 2:
 			_cd(line_vector);
@@ -91,19 +93,26 @@ int is_built_in(char *line, char **line_vector, list_path *current,
 	}
 	return (0);
 }
-
+/**
+ * _setenv - .
+ * @name: .
+ * @value: .
+ * @env_list: .
+ * Return: void
+ */
 void _setenv(char *name, char *value, list_path *env_list)
 {
 	list_path *var;
-	char* full_var;
+	char *full_var;
 	int count;
+
 	count = _strlen(name) + _strlen(value) + 2;
 	full_var = malloc(count);
-	if(full_var == NULL)
+	if (full_var == NULL)
 	{
 		perror("setenv ERROR");
 		/*
-		TODO status
+		* TODO status
 		*/
 		/*print something*/
 	}
@@ -114,7 +123,7 @@ void _setenv(char *name, char *value, list_path *env_list)
 	full_var[count - 1] = '\0';
 	var = get_variable(name, env_list);
 
-	if(var == 0)
+	if (var == 0)
 	{
 		free(var->path);
 		var->path = full_var;
@@ -125,36 +134,44 @@ void _setenv(char *name, char *value, list_path *env_list)
 		add_node(&env_list, full_var);
 		var->len = _strlen(full_var);
 	}
-		
+
 	print_list(env_list);
 
 }
-
+/**
+ * get_variable - .
+ * @name: .
+ * @head: .
+ * Return: .
+ */
 list_path *get_variable(char *name, list_path *head)
 {
 	while (head)
 	{
-		if(_varcmp(name, head->path))
+		if (_varcmp(name, head->path))
 			return (head);
 		head = head->next;
 	}
 
 	return (NULL);
 }
-
+/**
+ * _varcmp - .
+ * @var_name: .
+ * @full_var: .
+ * Return: .
+ */
 int _varcmp(char *var_name, char *full_var)
 {
 	int i;
 
-
 	for (i = 0; var_name[i]; i++)
 	{
-		if(full_var[i])
+		if (full_var[i])
 			if (var_name[i] - full_var[i] != 0)
 				return (-1);
 	}
-
-	if(full_var[i] == '=')
+	if (full_var[i] == '=')
 		return (0);
 
 	return (-1);

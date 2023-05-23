@@ -43,7 +43,6 @@ void handle_semicolons(char *line)
 	token = _strtok(line, ";"); /*split on semicolons*/
 	while (token != NULL)
 	{
-		// handle_comments(token);
 		args[0] = _strtok(token, " ");
 		i = 0;
 		while (args[i] != NULL && i < 99)

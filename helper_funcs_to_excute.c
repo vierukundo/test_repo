@@ -25,19 +25,18 @@ char **get_av_with_flags(char *line, int status)
 		free(line_cpy);
 		return (NULL);
 	}
-	/**/
 	if (_strcmp("$$", token) == 0)
 		cmd = get_process_id();
 	else if (_strcmp("$?", token) == 0)
 		cmd = get_status(status);
 	else if ((token[0] == '$') && (token[1]))
-			{
-				var = _getenv(&token[1]);
-				if(var)
-					cmd = _strdup(var);
-				else
-					cmd = _strdup("");
-			}
+	{
+		var = _getenv(&token[1]);
+		if (var)
+			cmd = _strdup(var);
+		else
+			cmd = _strdup("");
+	}
 	else
 		cmd = _strdup(token);
 	av[i++] = cmd;
@@ -53,12 +52,11 @@ char **get_av_with_flags(char *line, int status)
 			else if ((token[0] == '$') && (token[1]))
 			{
 				var = _getenv(&token[1]);
-				if(var)
+				if (var)
 					cmd = _strdup(var);
 				else
 					cmd = _strdup("");
 			}
-				
 			else
 				cmd = _strdup(token);
 			av[i++] = cmd;
@@ -85,7 +83,6 @@ void exit_check(int nread, char *exit_cmd)
 	{
 		exit(0);
 	}
-
 	if (_strcmp(exit_cmd, "exit") == 0)
 	{
 		exit(0);
@@ -144,7 +141,7 @@ unsigned int char_count(char *str, char c)
  * @str: .
  * @c: .
  * Return: .
-*/
+ */
 unsigned int char_count_piped(char *str, char c)
 {
 	unsigned int count = 0;
