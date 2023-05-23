@@ -13,7 +13,7 @@ void print_env(int *status)
 		printf("%s\n", environ[i]);
 		fflush(stdout);
 	}
-	*status = 0;/*success*/
+	*status = 0; /*success*/
 }
 /**
  * get_status - .
@@ -26,7 +26,27 @@ char *get_status(int n)
 
 	status = num_to_char(n);
 	return (status);
+}
 
+int _cd(char *line_vector[])
+{
+
+	if (line_vector[1] == NULL)
+	{
+		chdir(_getenv("HOME"));
+		return 1;
+	}
+
+	else
+	{
+		if (chdir(line_vector[1]) == -1)
+		{
+			char *msg = _strcat(line_vector[1], ": no such directory\n");
+			write(STDOUT_FILENO, msg, strlen(msg));
+			return -1;
+		}
+	}
+	return 0;
 }
 
 /**
@@ -56,9 +76,9 @@ int is_built_in(char *line, char **line_vector, list_path *current,
 		char *program_name, int counter, int *status)
 {
 	int i, n = -1;
-	char *built_in[] = {"env", "exit"};
+	char *built_in[] = {"env", "exit", "cd"};
 
-	for (i = 0; i < 2; i++)
+	for (i = 0; i < 3; i++)
 	{
 		if (_strcmp(built_in[i], line_vector[0]) == 0)
 		{
@@ -76,6 +96,9 @@ int is_built_in(char *line, char **line_vector, list_path *current,
 			break;
 		case 1:
 			is_exit(line, line_vector, current, program_name, counter, status);
+			break;
+		case 2:
+			_cd(line_vector);
 			break;
 		default:
 			return (-1);
@@ -122,3 +145,4 @@ char *num_to_char(int num)
 
 	return (cp_num);
 }
+
