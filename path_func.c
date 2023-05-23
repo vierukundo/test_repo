@@ -81,7 +81,10 @@ list_path *set_all_paths_to_list()
 	free(path_var_cpy);
 	return (paths_list); /*does not have access*/
 }
-
+/**
+ * set_all_vector_to_list - .
+ * Return: .
+ */
 list_path *set_all_vector_to_list()
 {
 	char *path_var_cpy;

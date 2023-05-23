@@ -8,7 +8,8 @@
  * @stream: .
  * Return: .
  */
-ssize_t _getlineHelper(char **lineptr, size_t *n,__attribute__((unused)) FILE *stream)
+ssize_t _getlineHelper(char **lineptr, size_t *n,
+		__attribute__((unused)) FILE * stream)
 {
 	if (lineptr == NULL || n == NULL)
 		return (-1);

@@ -81,3 +81,33 @@ unsigned int _chrCheck(char c, const char *str)
 	}
 	return (0);
 }
+
+/**
+ * free_l_v - Entry point to the shell
+ * @line: arguements count
+ * @line_vector: arguements values
+ */
+void free_l_v(char *line, char **line_vector)
+{
+	free(line);
+	free_vector(line_vector);
+}
+
+/**
+ * is_dir - Entry point to the shell
+ * @line: arguements count
+ * Return: is dir or not
+ */
+int is_dir(char *line)
+{
+	struct stat st;
+
+	if (stat(line, &st) == 0)
+	{
+		if (S_ISDIR(st.st_mode))
+		{
+			return (0);
+		}
+	}
+	return (-1);
+}
