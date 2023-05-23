@@ -73,12 +73,12 @@ char **text_to_vector(char *text)
 		return (NULL);
 	c_count = char_count_piped(text_cpy, '\n');
 	lines = malloc(c_count * sizeof(char *));
-	token = _strtok(text_cpy, "\n");
+	token = strtok(text_cpy, "\n");
 	cmd = _strdup(token);
 	lines[i++] = cmd;
 	while (token != NULL)
 	{
-		token = _strtok(NULL, "\n");
+		token = strtok(NULL, "\n");
 		if (token != NULL)
 		{
 			cmd = _strdup(token);
