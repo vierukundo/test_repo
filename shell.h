@@ -54,7 +54,8 @@ list_path *get_variable(char *name, list_path *head);
 size_t print_list(const list_path *p);
 void set_list_env(list_path *p);
 size_t env_list_len(const list_path *p);
-
+ssize_t _getlineHelper(char **lineptr, size_t *n, FILE *stream);
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 int _cd(char *line_vector[]);
 unsigned int _chrCheck(char c, const char *str);
 char *_strtok(char *str, const char *delim);
