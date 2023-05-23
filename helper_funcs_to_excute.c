@@ -10,8 +10,7 @@
 char **get_av_with_flags(char *line, int status)
 {
 	char *line_cpy, *token, *cmd, **av;
-	int i = 0;
-	unsigned int c_count;
+	int i = 0, c_count;
 
 	handle_comments(line);
 	line_cpy = _strdup(line);
@@ -81,7 +80,7 @@ void exit_check(int nread, char *exit_cmd)
  * Return: .
  */
 
-char *_getenv(const char *name)
+char *_getenv(char *name)
 {
 	int i = 0, j = 0;
 
@@ -95,7 +94,7 @@ char *_getenv(const char *name)
 			if (environ[i][j] != name[j])
 				break;
 			if (environ[i][j] == name[j] && (environ[i][j + 1] == '='))
-				return (&environ[i][strlen(name) + 1]);
+				return (&environ[i][_strlen(name) + 1]);
 			j++;
 		}
 		i++;

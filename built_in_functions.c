@@ -10,8 +10,8 @@ void print_env(int *status)
 
 	for (i = 0; environ[i] != NULL; i++)
 	{
-		printf("%s\n", environ[i]);
-		fflush(stdout);
+		write(STDOUT_FILENO, environ[i], _strlen(environ[i]));
+		write(STDOUT_FILENO, "\n", 1);
 	}
 	*status = 0; /*success*/
 }
@@ -125,4 +125,3 @@ char *num_to_char(int num)
 
 	return (cp_num);
 }
-
