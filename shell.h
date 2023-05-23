@@ -47,6 +47,7 @@ list_path *set_all_paths_to_list();
 char **get_av_with_flags(char *line, int status);
 unsigned int char_count(char *str, char c);
 /*==========================================================================*/
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 int _cd(char *line_vector[]);
 unsigned int _chrCheck(char c, const char *str);
 char *_strtok(char *str, const char *delim);

@@ -38,7 +38,7 @@ void handle_comments(char *line)
  * _cd - .
  * @line_vector: .
  * Return: .
-*/
+ */
 int _cd(char *line_vector[])
 {
 
@@ -47,7 +47,10 @@ int _cd(char *line_vector[])
 		chdir(_getenv("HOME"));
 		return (1);
 	}
-
+	else if (_strcmp(line_vector[1], "-") == 0)
+	{
+		chdir(_getenv("OLDPWD"));
+	}
 	else
 	{
 		if (chdir(line_vector[1]) == -1)
