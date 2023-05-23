@@ -72,11 +72,11 @@ list_path *set_all_paths_to_list()
 	if (path_var_cpy == NULL)
 		return (NULL); /*can't cpy*/
 
-	token = strtok(path_var_cpy, ":");
+	token = _strtok(path_var_cpy, ":");
 	while (token != NULL)
 	{
 		add_node(&paths_list, token);
-		token = strtok(NULL, ":");
+		token = _strtok(NULL, ":");
 	}
 	free(path_var_cpy);
 	return (paths_list); /*does not have access*/

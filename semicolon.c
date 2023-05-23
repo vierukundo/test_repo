@@ -40,17 +40,17 @@ void handle_semicolons(char *line)
 	char *args[100];
 	int i;
 
-	token = strtok(line, ";"); /*split on semicolons*/
+	token = _strtok(line, ";"); /*split on semicolons*/
 	while (token != NULL)
 	{
 		handle_comments(token);
 		i = 0;
-		args[0] = strtok(token, " ");
+		args[0] = _strtok(token, " ");
 		i = 0;
 		while (args[i] != NULL && i < 99)
 		{
 			i++;
-			args[i] = strtok(NULL, " ");
+			args[i] = _strtok(NULL, " ");
 		}
 		args[i] = NULL;
 
@@ -59,7 +59,7 @@ void handle_semicolons(char *line)
 			execute_command_with_waitpid(args[0], args, NULL);
 		}
 
-		token = strtok(NULL, ";");
+		token = _strtok(NULL, ";");
 	}
 }
 
