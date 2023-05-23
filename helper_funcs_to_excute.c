@@ -23,7 +23,7 @@ char **get_av_with_flags(char *line, int status)
 		return (NULL); /*can't cpy*/
 	c_count = char_count(line_cpy, ' ');
 	av = malloc((c_count + 1) * sizeof(char *));
-	token = strtok(line_cpy, TOK_D);
+	token = _strtok(line_cpy, TOK_D);
 	if (token == NULL)
 	{
 		free(av);
@@ -47,7 +47,7 @@ char **get_av_with_flags(char *line, int status)
 	av[i++] = cmd;
 	while (token != NULL)
 	{
-		token = strtok(NULL, TOK_D);
+		token = _strtok(NULL, TOK_D);
 		if (token != NULL)
 		{
 			if (_strcmp("$$", token) == 0)
