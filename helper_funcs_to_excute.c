@@ -9,7 +9,7 @@
  */
 char **get_av_with_flags(char *line, int status)
 {
-	char *line_cpy, *token, *cmd, **av;
+	char *line_cpy, *token, *cmd, **av, *var;
 	int i = 0, c_count;
 
 	handle_comments(line);
@@ -25,10 +25,19 @@ char **get_av_with_flags(char *line, int status)
 		free(line_cpy);
 		return (NULL);
 	}
+	/**/
 	if (_strcmp("$$", token) == 0)
 		cmd = get_process_id();
 	else if (_strcmp("$?", token) == 0)
 		cmd = get_status(status);
+	else if ((token[0] == '$') && (token[1]))
+			{
+				var = _getenv(&token[1]);
+				if(var)
+					cmd = _strdup(var);
+				else
+					cmd = _strdup("");
+			}
 	else
 		cmd = _strdup(token);
 	av[i++] = cmd;
@@ -41,6 +50,15 @@ char **get_av_with_flags(char *line, int status)
 				cmd = get_process_id();
 			else if (_strcmp("$?", token) == 0)
 				cmd = get_status(status);
+			else if ((token[0] == '$') && (token[1]))
+			{
+				var = _getenv(&token[1]);
+				if(var)
+					cmd = _strdup(var);
+				else
+					cmd = _strdup("");
+			}
+				
 			else
 				cmd = _strdup(token);
 			av[i++] = cmd;
