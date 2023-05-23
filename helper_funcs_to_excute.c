@@ -9,9 +9,8 @@
  */
 char **get_av_with_flags(char *line, int status)
 {
-	char *line_cpy, *token, *cmd, **av;
-	int i = 0;
-	unsigned int c_count;
+	char *line_cpy, *token, *cmd, **av, *var;
+	int i = 0, c_count;
 
 	handle_comments(line);
 	line_cpy = _strdup(line);
@@ -26,10 +25,19 @@ char **get_av_with_flags(char *line, int status)
 		free(line_cpy);
 		return (NULL);
 	}
+	/**/
 	if (_strcmp("$$", token) == 0)
 		cmd = get_process_id();
 	else if (_strcmp("$?", token) == 0)
 		cmd = get_status(status);
+	else if ((token[0] == '$') && (token[1]))
+			{
+				var = _getenv(&token[1]);
+				if(var)
+					cmd = _strdup(var);
+				else
+					cmd = _strdup("");
+			}
 	else
 		cmd = _strdup(token);
 	av[i++] = cmd;
@@ -42,6 +50,15 @@ char **get_av_with_flags(char *line, int status)
 				cmd = get_process_id();
 			else if (_strcmp("$?", token) == 0)
 				cmd = get_status(status);
+			else if ((token[0] == '$') && (token[1]))
+			{
+				var = _getenv(&token[1]);
+				if(var)
+					cmd = _strdup(var);
+				else
+					cmd = _strdup("");
+			}
+				
 			else
 				cmd = _strdup(token);
 			av[i++] = cmd;
@@ -81,7 +98,7 @@ void exit_check(int nread, char *exit_cmd)
  * Return: .
  */
 
-char *_getenv(const char *name)
+char *_getenv(char *name)
 {
 	int i = 0, j = 0;
 
@@ -95,7 +112,7 @@ char *_getenv(const char *name)
 			if (environ[i][j] != name[j])
 				break;
 			if (environ[i][j] == name[j] && (environ[i][j + 1] == '='))
-				return (&environ[i][strlen(name) + 1]);
+				return (&environ[i][_strlen(name) + 1]);
 			j++;
 		}
 		i++;

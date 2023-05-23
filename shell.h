@@ -36,7 +36,7 @@ typedef struct list_path
 } list_path;
 
 int _strcmp(char *s1, char *s2);
-char *_getenv(const char *name);
+char *_getenv(char *name);
 void free_list(list_path *head);
 int _strlen(char *s);
 char *_strdup(char *str);
