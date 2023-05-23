@@ -44,13 +44,20 @@ char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
 list_path *add_node(list_path **head, char *path);
 list_path *set_all_paths_to_list();
+list_path *set_all_vector_to_list();
 char **get_av_with_flags(char *line, int status);
 unsigned int char_count(char *str, char c);
 /*==========================================================================*/
+int _varcmp(char *var_name, char *full_var);
+void _setenv(char *name, char *value, list_path *env_list);
+list_path *get_variable(char *name, list_path *head);
+size_t print_list(const list_path *p);
+void set_list_env(list_path *p);
+size_t env_list_len(const list_path *p);
+
 int _cd(char *line_vector[]);
 unsigned int _chrCheck(char c, const char *str);
 char *_strtok(char *str, const char *delim);
-
 unsigned int char_count_piped(char *str, char c);
 void print_cant_open(char *program_name, int counter, char *file_name);
 void is_not_built_in(char **line_vector, char *env[], int *status,
@@ -63,7 +70,7 @@ void free_l_v(char *line, char **line_vector);
 int is_dir(char *line);
 int _atoi(char *s);
 void is_exit(char *line, char **line_vector, list_path *current,
-		char *program_name, int counter, int *status);
+		char *program_name, int counter, int *status, list_path *env);
 void print_error(char *program_name, int counter,
 		char *command, int type_of_error);
 void handle_comments(char *input);
@@ -78,7 +85,7 @@ void print_env(int *status);
 char *get_process_id();
 char *get_status(int n);
 int is_built_in(char *line, char **line_vector, list_path *current,
-		char *program_name, int counter, int *status);
+		char *program_name, int counter, int *status, list_path *env);
 void print_error(char *program_name, int counter,
 		char *command, int type_of_error);
 char *get_command_from_file(char *file);

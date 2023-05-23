@@ -81,6 +81,28 @@ list_path *set_all_paths_to_list()
 	free(path_var_cpy);
 	return (paths_list); /*does not have access*/
 }
+
+list_path *set_all_vector_to_list()
+{
+	char *path_var_cpy;
+	list_path *paths_list;
+	int i = 0;
+
+	paths_list = NULL;
+
+	if (environ == NULL)
+		return (NULL);
+	while (environ[i])
+	{
+		path_var_cpy = environ[i];
+		if (path_var_cpy == NULL)
+			return (NULL);
+		add_node(&paths_list, path_var_cpy);
+		i++;
+	}
+	return (paths_list); /*does not have access*/
+}
+
 /**
  * check_access - .
  * @line_av_1: .

@@ -13,11 +13,11 @@ int main(int argc, char *argv[], char *env[])
 	char *line, **line_vector = NULL, **lines;
 	list_path *current;
 	/*mode checking*/
+	status = &t;
 	mode = check_mode(argc);
 	if (mode != INTERACTIVE)
 		lines = get_commands(mode, argv[1], argv[0]);
 	current = set_all_paths_to_list();
-	status = &t;
 	while (++counter && non_int_count)
 	{
 		if (mode == NON_INTERACTIVE_PIPED || mode == NON_INTERACTIVE_FILE)
@@ -44,13 +44,114 @@ int main(int argc, char *argv[], char *env[])
 			free_l_v(line, line_vector);
 			continue;
 		}
-		if (is_built_in(line, line_vector, current, argv[0], counter, status) != 0)
+		if (is_built_in(line, line_vector, current, argv[0], counter, status, NULL) != 0)
 			is_not_built_in(line_vector, env, status, counter, current, argv);
 		free_l_v(line, line_vector);
 	}
 	exit(*status);
 }
 
+/**
+ * print_list - print list of strings
+ * @p: refrance of list_t "linked list of strings"
+ * Return: list size
+ */
+size_t print_list(const list_path *p)
+{
+	int size;
+
+	size = 0;
+	if (p == NULL)
+		return (0);
+
+	while (p)
+	{
+		if (p->path == NULL)
+		{
+			printf("[0] (nil)\n");
+			fflush(stdout);
+		}
+			
+		else
+		{
+			printf("[%d] %s\n", p->len, p->path);
+			fflush(stdout);
+		}
+			
+		p = p->next;
+		size++;
+	}
+	return (size);
+}
+
+
+/**
+ * print_list - print list of strings
+ * @p: refrance of list_t "linked list of strings"
+ * Return: list size
+ */
+void set_list_env(list_path *p)
+{
+	/*
+	
+
+	Freeeeeeeeeeeeeeeeeeeeee
+	
+	
+	*/
+	int size;
+	int list_size;
+	char **env;
+	size = 0;
+
+	if (p == NULL)
+		return;
+	/*get env count*/
+	list_size = env_list_len(p);
+	env = malloc(sizeof(char *) * (list_size));
+	if(env == NULL)
+	{
+		perror("dont have size for env");
+		return;
+	}
+	while (p)
+	{
+		/*reverce here*/
+		if(p->path != NULL)
+		{
+			env[size++] = p->path;
+			p = p->next;
+		}
+			
+	}
+	environ = env;
+}
+
+
+/**
+ * print_list - print list of strings
+ * @p: refrance of list_t "linked list of strings"
+ * Return: list size
+ */
+size_t env_list_len(const list_path *p)
+{
+	int size;
+
+	size = 0;
+	if (p == NULL)
+		return (0);
+
+	while (p)
+	{
+		
+		p = p->next;
+		size++;
+	}
+	if(size - 2 > 0)
+		return (size - 2);
+	else
+		return (0);
+}	
 /**
  * is_not_built_in - Entry point to the shell
  * @line_vector: arguements count
