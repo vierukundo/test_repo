@@ -28,26 +28,6 @@ char *get_status(int n)
 	return (status);
 }
 
-int _cd(char *line_vector[])
-{
-
-	if (line_vector[1] == NULL)
-	{
-		chdir(_getenv("HOME"));
-		return 1;
-	}
-
-	else
-	{
-		if (chdir(line_vector[1]) == -1)
-		{
-			char *msg = _strcat(line_vector[1], ": no such directory\n");
-			write(STDOUT_FILENO, msg, strlen(msg));
-			return -1;
-		}
-	}
-	return 0;
-}
 
 /**
  * get_process_id - .

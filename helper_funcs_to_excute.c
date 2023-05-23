@@ -7,28 +7,24 @@
  * @status: .
  * Return: .
  */
-
 char **get_av_with_flags(char *line, int status)
 {
-	char *line_cpy, *token, *cmd;
-	char **av;
+	char *line_cpy, *token, *cmd, **av;
 	int i = 0;
 	unsigned int c_count;
 
 	handle_comments(line);
-	/*handle_semicolons(line);*/
 	line_cpy = _strdup(line);
 	if (line_cpy == NULL)
 		return (NULL); /*can't cpy*/
-
 	c_count = char_count(line_cpy, ' ');
 	av = malloc((c_count + 1) * sizeof(char *));
 	token = strtok(line_cpy, TOK_D);
-	if(token == NULL)
+	if (token == NULL)
 	{
 		free(av);
 		free(line_cpy);
-		return NULL;
+		return (NULL);
 	}
 	if (_strcmp("$$", token) == 0)
 		cmd = get_process_id();
@@ -50,7 +46,6 @@ char **get_av_with_flags(char *line, int status)
 				cmd = _strdup(token);
 			av[i++] = cmd;
 		}
-
 	}
 	av[i] = NULL;
 	free(line_cpy);
@@ -127,7 +122,12 @@ unsigned int char_count(char *str, char c)
 	}
 	return (count + 1);
 }
-
+/**
+ * char_count_piped - .
+ * @str: .
+ * @c: .
+ * Return: .
+*/
 unsigned int char_count_piped(char *str, char c)
 {
 	unsigned int count = 0;

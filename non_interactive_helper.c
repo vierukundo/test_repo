@@ -41,7 +41,7 @@ char **piped_non_interactive()
 		perror("read");
 		exit(ERROR);
 	}
-	if(totalchar > 2048)
+	if (totalchar > 2048)
 		b[2048 - 1] = '\0';
 	else
 		b[totalchar - 1] = '\0';

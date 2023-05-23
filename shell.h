@@ -47,8 +47,9 @@ list_path *set_all_paths_to_list();
 char **get_av_with_flags(char *line, int status);
 unsigned int char_count(char *str, char c);
 /*==========================================================================*/
+int _cd(char *line_vector[]);
 unsigned int char_count_piped(char *str, char c);
-void print_cant_open(char *program_name , int counter,char *file_name);
+void print_cant_open(char *program_name, int counter, char *file_name);
 void is_not_built_in(char **line_vector, char *env[], int *status,
 						int counter, list_path *current, char *argv[]);
 char **text_to_vector(char *text);

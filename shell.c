@@ -48,7 +48,6 @@ int main(int argc, char *argv[], char *env[])
 			is_not_built_in(line_vector, env, status, counter, current, argv);
 		free_l_v(line, line_vector);
 	}
-
 	exit(*status);
 }
 
