@@ -40,14 +40,3 @@ char *get_command_from_file(char *file)
 {
 	return (file);
 }
-
-/**
- * init - .
- * @status: .
- * @argc: .
- * @argv: .
- * @current: .
- * @lines: .
- * Return: .
- */
-
