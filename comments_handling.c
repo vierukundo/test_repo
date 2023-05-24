@@ -56,6 +56,8 @@ int _cd(char **line_vector, char **argv)
 	else if (_strcmp(dir, "-") == 0)
 		dir = _getenv("OLDPWD");
 	rtrn = chdir(dir);
+	if (!opendir(dir))
+		dir = _getenv("OLDPWD");
 	if (rtrn == -1)
 	{
 		write(STDERR_FILENO, argv[0], _strlen(argv[0]));
