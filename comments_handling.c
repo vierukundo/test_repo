@@ -44,17 +44,19 @@ int _cd(char **line_vector, char **argv)
 {
 	char *dir = line_vector[1];
 	char cwd[1024];
+	int rtrn;
 
-	if (getcwd(cwd, sizeof(cwd)) == NULL) {
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+	{
 		perror("getcwd() error");
-		return 1;
+		return (1);
 	}
-	if (dir == NULL || _strcmp(dir, "~") == 0) {
+	if (dir == NULL || _strcmp(dir, "~") == 0)
 		dir = _getenv("HOME");
-	} else if (_strcmp(dir, "-") == 0) {
+	else if (_strcmp(dir, "-") == 0)
 		dir = _getenv("OLDPWD");
-	}
-	if (chdir(dir) == -1)
+	rtrn = chdir(dir);
+	if (rtrn == -1)
 	{
 		write(STDERR_FILENO, argv[0], _strlen(argv[0]));
 		write(STDERR_FILENO, ": 1", 3);
@@ -63,21 +65,24 @@ int _cd(char **line_vector, char **argv)
 		write(STDERR_FILENO, ": can't cd to ", 14);
 		write(STDERR_FILENO, line_vector[1], _strlen(line_vector[1]));
 		write(STDERR_FILENO, "\n", 1);
-		return 1;
-	} else {
-		setenv("OLDPWD", cwd, 1);
-		if (getcwd(cwd, sizeof(cwd)) == NULL) {
-			perror("getcwd() error");
-			return 1;
-		}
-		setenv("PWD", cwd, 1);
+		return (1);
 	}
-	return 0;
+	else
+	{
+		rtrn = setenv("OLDPWD", cwd, 1);
+		if (getcwd(cwd, sizeof(cwd)) == NULL)
+		{
+			perror("getcwd() error");
+			return (1);
+		}
+		rtrn = setenv("PWD", cwd, 1);
+	}
+	return (rtrn);
 }
 
 
 /**
- * _atoi - .
+ * free_all - .
  * @lines: .
  * @counter: .
  * @env: .
