@@ -71,3 +71,28 @@ int _cd(char *line_vector[])
 
 	return (0);
 }
+
+/**
+ * _atoi - .
+ * @lines: .
+ * @counter: .
+ * @env: .
+ * @current: .
+ * @line: .
+ * @line_vector: .
+ * Return: .
+ *
+ */
+void free_all(char **lines, int counter, list_path *env,
+				list_path *current, char *line, char **line_vector)
+{
+	if (lines)
+	{
+		free(lines[counter]);
+		if (lines)
+			free(lines);
+	}
+			free_list(env);
+			free_list(current);
+			free_l_v(line, line_vector);
+}

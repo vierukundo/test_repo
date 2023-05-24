@@ -48,6 +48,8 @@ list_path *set_all_vector_to_list();
 char **get_av_with_flags(char *line, int status);
 unsigned int char_count(char *str, char c);
 /*==========================================================================*/
+void free_all(char **lines, int counter, list_path *env,
+				list_path *current, char *line, char **line_vector);
 int _varcmp(char *var_name, char *full_var);
 void _setenv(char *name, char *value, list_path *env_list);
 list_path *get_variable(char *name, list_path *head);

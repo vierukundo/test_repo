@@ -42,11 +42,7 @@ void is_exit(char *line, char **line_vector, list_path *current,
 	{
 		if (line_vector[1] == NULL)
 		{
-			if (lines)
-				free(lines);
-			free_list(env);
-			free_list(current);
-			free_l_v(line, line_vector);
+			free_all(lines, counter, env, current, line, line_vector);
 			exit(*status);
 		}
 		else if (line_vector[1] != NULL)
@@ -56,11 +52,7 @@ void is_exit(char *line, char **line_vector, list_path *current,
 				n = _atoi(line_vector[1]);
 				if (n != -1)
 				{
-					free_l_v(line, line_vector);
-					free_list(env);
-					free_list(current);
-					if (lines)
-						free(lines);
+					free_all(lines, counter, env, current, line, line_vector);
 					exit(n);
 				}
 				else

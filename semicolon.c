@@ -58,4 +58,5 @@ void print_cant_open(char *program_name, int counter, char *file_name)
 	write(STDERR_FILENO, "Can't open ", 11);
 	write(STDERR_FILENO, file_name, _strlen(file_name));
 	write(STDERR_FILENO, "\n", 1);
+	free(counter_s);
 }
