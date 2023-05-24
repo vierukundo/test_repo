@@ -44,7 +44,6 @@ int _cd(char **line_vector, char **argv)
 {
 	char *dir = line_vector[1];
 	char cwd[1024];
-	int rtrn;
 
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
@@ -56,8 +55,6 @@ int _cd(char **line_vector, char **argv)
 	else if (_strcmp(dir, "-") == 0)
 		dir = _getenv("OLDPWD");
 	rtrn = chdir(dir);
-	if (!opendir(dir))
-		dir = _getenv("OLDPWD");
 	if (rtrn == -1)
 	{
 		write(STDERR_FILENO, argv[0], _strlen(argv[0]));
@@ -71,15 +68,14 @@ int _cd(char **line_vector, char **argv)
 	}
 	else
 	{
-		rtrn = setenv("OLDPWD", cwd, 1);
+		setenv("OLDPWD", cwd, 1);
 		if (getcwd(cwd, sizeof(cwd)) == NULL)
 		{
 			perror("getcwd() error");
 			return (1);
 		}
-		rtrn = setenv("PWD", cwd, 1);
 	}
-	return (rtrn);
+	return (0);
 }
 
 
