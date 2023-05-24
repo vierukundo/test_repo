@@ -16,11 +16,7 @@ int main(int argc, char *argv[], char *env[])
 	status = &t;
 	mode = check_mode(argc);
 	if (mode != INTERACTIVE)
-	{
 		lines = get_commands(mode, argv[1], argv[0]);
-		if (!lines)
-			exit(*status);
-	}
 	current = set_all_paths_to_list();
 	while (++counter && non_int_count)
 	{

@@ -12,11 +12,16 @@ char **get_commands(int mode, char *file_name, char *program_name)
 	char **lines = NULL;
 
 	if (mode == NON_INTERACTIVE_PIPED)
+	{
 		lines = piped_non_interactive();
+		if (!lines)
+			exit(0);
+	}
 	else if (mode == NON_INTERACTIVE_FILE)
 	{
-
 		lines = file_non_interactive(file_name, program_name);
+		if (!lines)
+			exit(0);
 	}
 	return (lines);
 }
