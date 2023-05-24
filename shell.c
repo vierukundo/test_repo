@@ -26,7 +26,8 @@ int main(int argc, char *argv[], char *env[])
 				line = lines[counter - 1];
 			else
 			{
-				free_vector(lines);
+				free(lines);
+				
 				break;
 			}
 				
@@ -57,6 +58,18 @@ int main(int argc, char *argv[], char *env[])
 	exit(*status);
 }
 
+void free_char_vector(char** arr) 
+{
+	int i;
+    if (arr == NULL) {
+        return; 
+    }
+
+    for (i = 0; arr[i] != NULL; i++) {
+        free(arr[i]);
+    }
+	
+}
 /**
  * print_list - print list of strings
  * @p: refrance of list_t "linked list of strings"

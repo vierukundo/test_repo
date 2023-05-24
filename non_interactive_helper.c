@@ -44,18 +44,11 @@ char **piped_non_interactive()
 	if (totalchar > 2048)
 	{
 		b[2048 - 1] = '\0';
-		text = malloc(sizeof(char) * (2048));
 	}
 	else
 	{
 		b[totalchar - 1] = '\0';
-		text = malloc(sizeof(char) * (totalchar));
 	}
-		
-
-	
-	if (!text)
-		return (NULL);
 
 	text = _strdup(b);
 	if (text)

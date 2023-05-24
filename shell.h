@@ -34,7 +34,7 @@ typedef struct list_path
 	unsigned int len;
 	struct list_path *next;
 } list_path;
-
+void free_char_vector(char** arr) ;
 int _strcmp(char *s1, char *s2);
 char *_getenv(char *name);
 void free_list(list_path *head);
