@@ -31,6 +31,7 @@ char **piped_non_interactive()
 	char b[2048], *text = NULL, **lines = NULL;
 	ssize_t bytesRead;
 	size_t totalchar = 0;
+	int i, flag = 0;
 
 	while ((bytesRead = read(STDIN_FILENO, b, 2048)) > 0)
 	{
@@ -49,6 +50,14 @@ char **piped_non_interactive()
 	{
 		b[totalchar - 1] = '\0';
 	}
+
+	for (i = 0; b[i]; i++)
+	{
+		if (b[i] != ' ')
+			flag = 1;
+	}
+	if (flag == 0)
+		return (NULL);
 	totalchar = _strlen(b);
 	text = (char *)malloc((totalchar + 1) * sizeof(char));
 	if (text != NULL)
@@ -109,7 +118,7 @@ char **file_non_interactive(char *file_name, char *program_name)
 		{
 			file_descriptor = open(file_name, O_RDONLY);
 			if (file_descriptor  == -1)
-				exit(ERROR);			
+				exit(ERROR);
 			if (fileStat.st_size == 0)
 				exit(0);
 			text = malloc((fileStat.st_size + 1) * sizeof(char));
