@@ -69,7 +69,7 @@ void free_l_v(char *line, char **line_vector);
 int is_dir(char *line);
 int _atoi(char *s);
 void is_exit(char *line, char **line_vector, list_path *current,
-		char *program_name, int counter, int *status, list_path *env);
+		char *program_name, int counter, int *status, list_path *env, char ** lines);
 void print_error(char *program_name, int counter,
 		char *command, int type_of_error);
 void handle_comments(char *input);
@@ -84,7 +84,7 @@ void print_env(int *status);
 char *get_process_id();
 char *get_status(int n);
 int is_built_in(char *line, char **line_vector, list_path *current,
-		char *program_name, int counter, int *status, list_path *env);
+		char *program_name, int counter, int *status, list_path *env, char ** lines);
 void print_error(char *program_name, int counter,
 		char *command, int type_of_error);
 char *get_command_from_file(char *file);

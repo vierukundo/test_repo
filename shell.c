@@ -27,7 +27,6 @@ int main(int argc, char *argv[], char *env[])
 			else
 			{
 				free(lines);
-				
 				break;
 			}
 				
@@ -50,7 +49,7 @@ int main(int argc, char *argv[], char *env[])
 			continue;
 		}
 		if (is_built_in(line, line_vector, current,
-			argv[0], counter, status, NULL) != 0)
+			argv[0], counter, status, NULL, lines) != 0)
 			is_not_built_in(line_vector, env, status, counter, current, argv);
 		free_l_v(line, line_vector);
 	}

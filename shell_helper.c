@@ -33,7 +33,7 @@ int check_mode(int argc)
  */
 
 void is_exit(char *line, char **line_vector, list_path *current,
-		char *program_name, int counter, int *status, list_path *env)
+		char *program_name, int counter, int *status, list_path *env, char **lines)
 {
 	int n;
 
@@ -42,6 +42,8 @@ void is_exit(char *line, char **line_vector, list_path *current,
 		if (line_vector[1] == NULL)
 		{
 			free(line);
+			if(lines)
+				free(lines);
 			free_list(env);
 			free_list(current);
 			free_vector(line_vector);
@@ -57,6 +59,8 @@ void is_exit(char *line, char **line_vector, list_path *current,
 					free(line);
 					free_list(env);
 					free_list(current);
+					if(lines)
+						free(lines);
 					free_vector(line_vector);
 					exit(n);
 				}
