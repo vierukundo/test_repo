@@ -161,7 +161,7 @@ void is_not_built_in(char **line_vector, char *env[], int *status,
 {
 	char *new_path;
 
-	if (access(line_vector[0], F_OK) == 0)
+	if (access(line_vector[0], X_OK) == 0)
 		execute_command(line_vector[0], line_vector, env, status);
 	else
 	{
@@ -173,8 +173,17 @@ void is_not_built_in(char **line_vector, char *env[], int *status,
 		}
 		else
 		{
-			print_error(argv[0], counter, line_vector[0], NOT_FOUND);
-			*status = NOT_FOUND;
+			if (access(line_vector[0], F_OK) == 0)
+			{
+				print_error(argv[0], counter, line_vector[0], PERMISSION_DENIED);
+				*status = PERMISSION_DENIED;
+			}
+			else
+			{
+				print_error(argv[0], counter, line_vector[0], NOT_FOUND);
+				*status = NOT_FOUND;
+			}
+			
 		}
 	}
 }

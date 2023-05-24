@@ -133,7 +133,7 @@ char *check_access(char *line_av_1, list_path *current)
 		_strcpy(full_path, current->path);
 		_strcat(full_path, "/");
 		_strcat(full_path, line_av_1);
-		if (access(full_path, F_OK) == 0)
+		if (access(full_path, X_OK) == 0)
 		{
 			found = 1;
 			break;

@@ -122,10 +122,8 @@ void execute_command(char *path, char **av, char **env, int *status)
 	}
 	if (pid == 0)
 	{
-		
 		if (execve(path, av, env) == -1)
 			exit(126);
-		exit(EXIT_FAILURE);
 	}
 	else if (pid > 0)
 	{
