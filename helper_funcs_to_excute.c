@@ -2,24 +2,19 @@
 
 /*will edit betty soon*/
 /**
- * get_av_with_flags - .
+ * get_av_with_flags_helper - .
+ * @token: .
  * @line: .
+ * @av: .
  * @status: .
  * Return: .
- */
-char **get_av_with_flags(char *line, int status)
+*/
+char *get_av_with_flags_helper(char *token, char *line, char **av, int status)
 {
-	char *line_cpy, *token, *cmd, **av, *var;
-	int i = 0, c_count;
+		char *var, *cmd, *line_cpy;
 
-	handle_comments(line);
 	line_cpy = _strdup(line);
-	if (line_cpy == NULL)
-		return (NULL); /*can't cpy*/
-	c_count = char_count(line_cpy, ' ');
-	av = malloc((c_count + 1) * sizeof(char *));
-	token = _strtok(line_cpy, TOK_D);
-	if (token == NULL)
+		if (token == NULL)
 	{
 		free(av);
 		free(line_cpy);
@@ -39,6 +34,30 @@ char **get_av_with_flags(char *line, int status)
 	}
 	else
 		cmd = _strdup(token);
+
+	return (cmd);
+}
+/**
+ * get_av_with_flags - .
+ * @line: .
+ * @status: .
+ * Return: .
+ */
+char **get_av_with_flags(char *line, int status)
+{
+	char *line_cpy, *token, **av, *var, *cmd;
+	int i = 0, c_count;
+
+	handle_comments(line);
+	line_cpy = _strdup(line);
+	if (line_cpy == NULL)
+		return (NULL); /*can't cpy*/
+	c_count = char_count(line_cpy, ' ');
+	av = malloc((c_count + 1) * sizeof(char *));
+	token = _strtok(line_cpy, TOK_D);
+
+	cmd = get_av_with_flags_helper(token, line, av, status);
+
 	av[i++] = cmd;
 	while (token != NULL)
 	{
@@ -136,21 +155,4 @@ unsigned int char_count(char *str, char c)
 	}
 	return (count + 1);
 }
-/**
- * char_count_piped - .
- * @str: .
- * @c: .
- * Return: .
- */
-unsigned int char_count_piped(char *str, char c)
-{
-	unsigned int count = 0;
 
-	while (*str != '\0')
-	{
-		if (*str != c)
-			count++;
-		str++;
-	}
-	return (count + 1);
-}

@@ -79,3 +79,22 @@ char *num_to_char(int num)
 
 	return (cp_num);
 }
+
+/**
+ * char_count_piped - .
+ * @str: .
+ * @c: .
+ * Return: .
+ */
+unsigned int char_count_piped(char *str, char c)
+{
+	unsigned int count = 0;
+
+	while (*str != '\0')
+	{
+		if (*str != c)
+			count++;
+		str++;
+	}
+	return (count + 1);
+}

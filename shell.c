@@ -126,7 +126,7 @@ void set_list_env(list_path *p)
 
 
 /**
- * env_list_env - print list of strings
+ * env_list_len - print list of strings
  * @p: refrance of list_t "linked list of strings"
  * Return: list size
  */
