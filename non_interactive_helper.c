@@ -109,7 +109,9 @@ char **file_non_interactive(char *file_name, char *program_name)
 		{
 			file_descriptor = open(file_name, O_RDONLY);
 			if (file_descriptor  == -1)
-				exit(ERROR);
+				exit(ERROR);			
+			if (fileStat.st_size == 0)
+				exit(0);
 			text = malloc((fileStat.st_size + 1) * sizeof(char));
 			if (!text)
 				return (NULL);
