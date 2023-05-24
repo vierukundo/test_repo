@@ -10,7 +10,7 @@
 int main(int argc, char *argv[], char *env[])
 {
 	int mode, counter = 0, *status, t = 0, non_int_count = 1;
-	char *line, **line_vector = NULL, **lines;
+	char *line, **line_vector = NULL, **lines = NULL;
 	list_path *current;
 	/*mode checking*/
 	status = &t;

@@ -92,7 +92,7 @@ unsigned int char_count_piped(char *str, char c)
 
 	while (*str != '\0')
 	{
-		if (*str != c)
+		if (*str == c)
 			count++;
 		str++;
 	}

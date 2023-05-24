@@ -9,10 +9,10 @@
  */
 char **get_commands(int mode, char *file_name, char *program_name)
 {
-	char **lines;
+	char **lines = NULL;
 
 	if (mode == NON_INTERACTIVE_PIPED)
-		lines = piped_non_interactive(program_name);
+		lines = piped_non_interactive();
 	else if (mode == NON_INTERACTIVE_FILE)
 	{
 
@@ -28,7 +28,7 @@ char **get_commands(int mode, char *file_name, char *program_name)
  */
 char **piped_non_interactive()
 {
-	char b[2048], *text, **lines;
+	char b[2048], *text = NULL, **lines = NULL;
 	ssize_t bytesRead;
 	size_t totalchar = 0;
 
@@ -49,10 +49,14 @@ char **piped_non_interactive()
 	{
 		b[totalchar - 1] = '\0';
 	}
-
-	text = _strdup(b);
-	if (text)
-		lines = text_to_vector(text);
+	totalchar = _strlen(b);
+	text = (char *)malloc((totalchar + 1) * sizeof(char));
+	if (text != NULL)
+    {
+        _strcpy(text, b);
+		text[totalchar] = '\0';
+        lines = text_to_vector(text);
+    }
 	return (lines);
 }
 
@@ -63,17 +67,14 @@ char **piped_non_interactive()
  */
 char **text_to_vector(char *text)
 {
-	char *token, *cmd, *text_cpy;
-	char **lines;
+	char *token, *cmd;
+	char **lines = NULL;
 	int i = 0;
-	unsigned int c_count;
+	unsigned int c_count = 0;
 
-	text_cpy = text;
-	if (text_cpy == NULL)
-		return (NULL);
-	c_count = char_count_piped(text_cpy, '\n');
-	lines = malloc(c_count * sizeof(char *));
-	token = _strtok(text_cpy, "\n");
+	c_count = char_count_piped(text, '\n');
+	lines = (char **)malloc((c_count + 1) * sizeof(char *));
+	token = _strtok(text, "\n");
 	cmd = _strdup(token);
 	lines[i++] = cmd;
 	while (token != NULL)
@@ -86,6 +87,7 @@ char **text_to_vector(char *text)
 		}
 	}
 	free(text);
+	lines[i] = NULL;
 	return (lines);
 }
 /**
