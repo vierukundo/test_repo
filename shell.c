@@ -173,8 +173,7 @@ void is_not_built_in(char **line_vector, char *env[], int *status,
 		}
 		else
 		{
-			/*print_error(argv[0], counter, line_vector[0], NOT_FOUND);*/
-			perror("not found");
+			print_error(argv[0], counter, line_vector[0], NOT_FOUND);
 			*status = NOT_FOUND;
 		}
 	}
