@@ -37,40 +37,44 @@ void handle_comments(char *line)
 /**
  * _cd - .
  * @line_vector: .
+ * @argv: .
  * Return: .
  */
-int _cd(char *line_vector[])
+int _cd(char **line_vector, char **argv)
 {
-	char cwd[PATH_MAX];
+	char *dir = line_vector[1];
+	char cwd[1024];
 
-		if (line_vector[1] == NULL)
-		{
-			chdir(_getenv("HOME"));
-			return (1);
-		}
-		else if (_strcmp(line_vector[1], "-") == 0)
-		{
-			chdir(_getenv("OLDPWD"));
-		}
-		else
-			chdir(line_vector[1]);
-
-	if (chdir(line_vector[1]) == -1)
-	{
-		char *msg = _strcat(line_vector[1], ": no such directory\n");
-
-		write(STDOUT_FILENO, msg, strlen(msg));
-		return (-1);
+	if (getcwd(cwd, sizeof(cwd)) == NULL) {
+		perror("getcwd() error");
+		return 1;
 	}
-	else if (chdir(line_vector[1]) != -1)
+	if (dir == NULL || _strcmp(dir, "~") == 0) {
+		dir = _getenv("HOME");
+	} else if (_strcmp(dir, "-") == 0) {
+		dir = _getenv("OLDPWD");
+	}
+	if (chdir(dir) == -1)
 	{
-		getcwd(cwd, sizeof(cwd));
-		setenv("OLDPWD", _getenv("PWD"), 1);
+		write(STDERR_FILENO, argv[0], _strlen(argv[0]));
+		write(STDERR_FILENO, ": 1", 3);
+		write(STDERR_FILENO, ": ", 2);
+		write(STDERR_FILENO, line_vector[0], _strlen(line_vector[0]));
+		write(STDERR_FILENO, ": can't cd to ", 14);
+		write(STDERR_FILENO, line_vector[1], _strlen(line_vector[1]));
+		write(STDERR_FILENO, "\n", 1);
+		return 1;
+	} else {
+		setenv("OLDPWD", cwd, 1);
+		if (getcwd(cwd, sizeof(cwd)) == NULL) {
+			perror("getcwd() error");
+			return 1;
+		}
 		setenv("PWD", cwd, 1);
 	}
-
-	return (0);
+	return 0;
 }
+
 
 /**
  * _atoi - .
@@ -84,7 +88,7 @@ int _cd(char *line_vector[])
  *
  */
 void free_all(char **lines, int counter, list_path *env,
-				list_path *current, char *line, char **line_vector)
+		list_path *current, char *line, char **line_vector)
 {
 	if (lines)
 	{
@@ -92,7 +96,7 @@ void free_all(char **lines, int counter, list_path *env,
 		if (lines)
 			free(lines);
 	}
-			free_list(env);
-			free_list(current);
-			free_l_v(line, line_vector);
+	free_list(env);
+	free_list(current);
+	free_l_v(line, line_vector);
 }

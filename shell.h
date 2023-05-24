@@ -56,7 +56,7 @@ list_path *get_variable(char *name, list_path *head);
 size_t print_list(const list_path *p);
 void set_list_env(list_path *p);
 size_t env_list_len(const list_path *p);
-int _cd(char *line_vector[]);
+int _cd(char *line_vector[], char **argv);
 unsigned int _chrCheck(char c, const char *str);
 char *_strtok(char *str, const char *delim);
 unsigned int char_count_piped(char *str, char c);
@@ -87,7 +87,8 @@ void print_env(int *status);
 char *get_process_id();
 char *get_status(int n);
 int is_built_in(char *line, char **line_vector, list_path *current,
-		char *program_name, int counter, int *status, list_path *env, char **lines);
+		char *program_name,
+		int counter, int *status, list_path *env, char **lines, char **argv);
 void print_error(char *program_name, int counter,
 		char *command, int type_of_error);
 char *get_command_from_file(char *file);
