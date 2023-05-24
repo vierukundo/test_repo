@@ -14,7 +14,7 @@ char *get_av_with_flags_helper(char *token, char *line, char **av, int status)
 {
 		char *var, *cmd, *line_cpy;
 
-	line_cpy = _strdup(line);
+	line_cpy = line;
 		if (token == NULL)
 	{
 		free(av);
@@ -156,4 +156,3 @@ unsigned int char_count(char *str, char c)
 	}
 	return (count + 1);
 }
-

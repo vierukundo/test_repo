@@ -25,7 +25,11 @@ int main(int argc, char *argv[], char *env[])
 			if (lines[counter - 1])
 				line = lines[counter - 1];
 			else
+			{
+				free_vector(lines);
 				break;
+			}
+				
 		}
 		else if (mode == INTERACTIVE)
 			line = get_command_from_user(current);
@@ -49,6 +53,7 @@ int main(int argc, char *argv[], char *env[])
 			is_not_built_in(line_vector, env, status, counter, current, argv);
 		free_l_v(line, line_vector);
 	}
+	free_list(current);
 	exit(*status);
 }
 
@@ -180,4 +185,3 @@ void is_not_built_in(char **line_vector, char *env[], int *status,
 		}
 	}
 }
-

@@ -42,11 +42,18 @@ char **piped_non_interactive()
 		exit(ERROR);
 	}
 	if (totalchar > 2048)
+	{
 		b[2048 - 1] = '\0';
+		text = malloc(sizeof(char) * (2048));
+	}
 	else
+	{
 		b[totalchar - 1] = '\0';
+		text = malloc(sizeof(char) * (totalchar));
+	}
+		
 
-	text = malloc(sizeof(char) * (totalchar));
+	
 	if (!text)
 		return (NULL);
 
@@ -68,7 +75,7 @@ char **text_to_vector(char *text)
 	int i = 0;
 	unsigned int c_count;
 
-	text_cpy = _strdup(text);
+	text_cpy = text;
 	if (text_cpy == NULL)
 		return (NULL);
 	c_count = char_count_piped(text_cpy, '\n');
