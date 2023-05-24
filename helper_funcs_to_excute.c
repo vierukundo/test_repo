@@ -50,7 +50,7 @@ char **get_av_with_flags(char *line, int status)
 	int i = 0, c_count;
 
 	handle_comments(line);
-	if(line[0] == '\0')
+	if (line[0] == '\0')
 		return (NULL);
 	line_cpy = _strdup(line);
 	if (line_cpy == NULL)
@@ -60,7 +60,6 @@ char **get_av_with_flags(char *line, int status)
 	token = _strtok(line_cpy, TOK_D);
 
 	cmd = get_av_with_flags_helper(token, line, av, status);
-
 	av[i++] = cmd;
 	while (token != NULL)
 	{
