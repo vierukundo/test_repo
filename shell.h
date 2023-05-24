@@ -34,7 +34,6 @@ typedef struct list_path
 	unsigned int len;
 	struct list_path *next;
 } list_path;
-void free_char_vector(char** arr) ;
 int _strcmp(char *s1, char *s2);
 char *_getenv(char *name);
 void free_list(list_path *head);
@@ -66,10 +65,11 @@ char **file_non_interactive(char *file_name, char *program_name);
 char **piped_non_interactive();
 char **get_commands(int mode, char *file_name, char *program_name);
 void free_l_v(char *line, char **line_vector);
-int is_dir(char *line);
+int is_dir(char *line, char **argv, int counter,
+			char **line_vector, int *status, char *old_line);
 int _atoi(char *s);
 void is_exit(char *line, char **line_vector, list_path *current,
-		char *program_name, int counter, int *status, list_path *env, char ** lines);
+		char *program_name, int counter, int *status, list_path *env, char **lines);
 void print_error(char *program_name, int counter,
 		char *command, int type_of_error);
 void handle_comments(char *input);
@@ -84,7 +84,7 @@ void print_env(int *status);
 char *get_process_id();
 char *get_status(int n);
 int is_built_in(char *line, char **line_vector, list_path *current,
-		char *program_name, int counter, int *status, list_path *env, char ** lines);
+		char *program_name, int counter, int *status, list_path *env, char **lines);
 void print_error(char *program_name, int counter,
 		char *command, int type_of_error);
 char *get_command_from_file(char *file);

@@ -52,11 +52,11 @@ char **piped_non_interactive()
 	totalchar = _strlen(b);
 	text = (char *)malloc((totalchar + 1) * sizeof(char));
 	if (text != NULL)
-    {
-        _strcpy(text, b);
+	{
+		_strcpy(text, b);
 		text[totalchar] = '\0';
-        lines = text_to_vector(text);
-    }
+		lines = text_to_vector(text);
+	}
 	return (lines);
 }
 

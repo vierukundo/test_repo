@@ -54,7 +54,8 @@ char *get_process_id()
  * Return: .
  */
 int is_built_in(char *line, char **line_vector, list_path *current,
-		char *program_name, int counter, int *status, list_path *env_list, char **lines)
+	char *program_name, int counter, int *status, list_path *env_list,
+	char **lines)
 {
 	int i, n = -1;
 	char *built_in[] = {"env", "exit", "cd", "setenv", "unsetenv"};

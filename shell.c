@@ -29,7 +29,6 @@ int main(int argc, char *argv[], char *env[])
 				free(lines);
 				break;
 			}
-				
 		}
 		else if (mode == INTERACTIVE)
 			line = get_command_from_user(current);
@@ -41,13 +40,8 @@ int main(int argc, char *argv[], char *env[])
 			free(line);
 			continue;
 		}
-		if (is_dir(line_vector[0]) == 0)
-		{
-			print_error(argv[0], counter, line_vector[0], PERMISSION_DENIED);
-			*status = PERMISSION_DENIED;
-			free_l_v(line, line_vector);
+		if (is_dir(line_vector[0], argv, counter, line_vector, status, line) == 0)
 			continue;
-		}
 		if (is_built_in(line, line_vector, current,
 			argv[0], counter, status, NULL, lines) != 0)
 			is_not_built_in(line_vector, env, status, counter, current, argv);
@@ -55,19 +49,6 @@ int main(int argc, char *argv[], char *env[])
 	}
 	free_list(current);
 	exit(*status);
-}
-
-void free_char_vector(char** arr) 
-{
-	int i;
-    if (arr == NULL) {
-        return; 
-    }
-
-    for (i = 0; arr[i] != NULL; i++) {
-        free(arr[i]);
-    }
-	
 }
 /**
  * print_list - print list of strings

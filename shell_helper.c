@@ -29,6 +29,7 @@ int check_mode(int argc)
  * @counter: .
  * @status: .
  * @env: .
+ * @lines: .
  * Return: void
  */
 
@@ -41,12 +42,11 @@ void is_exit(char *line, char **line_vector, list_path *current,
 	{
 		if (line_vector[1] == NULL)
 		{
-			free(line);
-			if(lines)
+			if (lines)
 				free(lines);
 			free_list(env);
 			free_list(current);
-			free_vector(line_vector);
+			free_l_v(line, line_vector);
 			exit(*status);
 		}
 		else if (line_vector[1] != NULL)
@@ -56,12 +56,11 @@ void is_exit(char *line, char **line_vector, list_path *current,
 				n = _atoi(line_vector[1]);
 				if (n != -1)
 				{
-					free(line);
+					free_l_v(line, line_vector);
 					free_list(env);
 					free_list(current);
-					if(lines)
+					if (lines)
 						free(lines);
-					free_vector(line_vector);
 					exit(n);
 				}
 				else
