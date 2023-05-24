@@ -50,6 +50,8 @@ char **get_av_with_flags(char *line, int status)
 	int i = 0, c_count;
 
 	handle_comments(line);
+	if(line[0] == '\0')
+		return (NULL);
 	line_cpy = _strdup(line);
 	if (line_cpy == NULL)
 		return (NULL); /*can't cpy*/
