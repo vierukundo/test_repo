@@ -124,7 +124,7 @@ void execute_command(char *path, char **av, char **env, int *status)
 	{
 		execve(path, av, env);
 		perror("execve");
-		exit(EXIT_FAILURE);
+		
 	}
 	else if (pid > 0)
 	{
