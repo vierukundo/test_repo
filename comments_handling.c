@@ -41,7 +41,7 @@ void handle_comments(char *line)
  */
 int _cd(char *line_vector[])
 {
-	char cwd[PATH_MAX]; //defined in the header linux/limits.h
+	char cwd[PATH_MAX];
 
 		if (line_vector[1] == NULL)
 		{
