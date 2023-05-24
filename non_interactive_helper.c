@@ -58,7 +58,8 @@ char **piped_non_interactive()
 
 	for (i = 0; b[i]; i++)
 	{
-		if (b[i] != ' ')
+		if (b[i] != ' ' && b[i] != '\n' && b[i] != '\t'
+						&& b[i] != '\r' && b[i] != '\a')
 			flag = 1;
 	}
 	if (flag == 0)
