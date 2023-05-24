@@ -51,6 +51,7 @@ char *get_process_id()
  * @counter: .
  * @status: .
  * @env_list: .
+ * @lines: .
  * Return: .
  */
 int is_built_in(char *line, char **line_vector, list_path *current,
