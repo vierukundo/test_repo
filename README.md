@@ -1,2 +1,1 @@
-test partners
-test tany
+simple shell

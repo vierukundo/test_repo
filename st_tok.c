@@ -1,47 +1,47 @@
 #include "shell.h"
 
 /**
- * _strtok - .
+ * _saak - .
  * @str: .
  * @delimiters: .
  * Return: .
  */
-char *_strtok(char *str, const char *delimiters)
+char *_saak(char *str, const char *delimiters)
 {
 	return (strtok(str, delimiters));
 }
 
 /**
- * _chrCheck - .
+ * _craak - .
  * @c: .
  * @str: .
  * Return: .
  */
-unsigned int _chrCheck(char c, const char *str)
+unsigned int _craak(char c, const char *str)
 {
-	unsigned int i;
+	unsigned int z;
 
-	for (i = 0; str[i] != '\0'; i++)
+	for (z = 0; str[z] != '\0'; z++)
 	{
-		if (c == str[i])
+		if (c == str[z])
 			return (1);
 	}
 	return (0);
 }
 
 /**
- * free_l_v - Entry point to the shell
+ * free_e_v - Entry point to the shell
  * @line: arguements count
  * @line_vector: arguements values
  */
-void free_l_v(char *line, char **line_vector)
+void free_e_v(char *line, char **line_vector)
 {
 	free(line);
 	free_vector(line_vector);
 }
 
 /**
- * is_dir - Entry point to the shell
+ * is_dar - Entry point to the shell
  * @line: arguements count
  * @argv: arguements count
  * @counter: arguements count
@@ -50,7 +50,7 @@ void free_l_v(char *line, char **line_vector)
  * @old_line: arguements count
  * Return: is dir or not
  */
-int is_dir(char *line, char **argv, int counter, char **line_vector,
+int is_dar(char *line, char **argv, int counter, char **line_vector,
 		int *status, char *old_line)
 {
 	struct stat st;
@@ -59,9 +59,9 @@ int is_dir(char *line, char **argv, int counter, char **line_vector,
 	{
 		if (S_ISDIR(st.st_mode))
 		{
-			print_error(argv[0], counter, line_vector[0], PERMISSION_DENIED);
+			priwt_ewwr(argv[0], counter, line_vector[0], PERMISSION_DENIED);
 			*status = PERMISSION_DENIED;
-			free_l_v(old_line, line_vector);
+			free_e_v(old_line, line_vector);
 			return (0);
 		}
 	}

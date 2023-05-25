@@ -1,16 +1,16 @@
 #include "shell.h"
 
 /**
- * get_variable - .
+ * get_saaaaaa - .
  * @name: .
  * @head: .
  * Return: .
  */
-list_path *get_variable(char *name, list_path *head)
+list_pa *get_saaaaaa(char *name, list_pa *head)
 {
 	while (head)
 	{
-		if (_varcmp(name, head->path))
+		if (_varllp(name, head->path))
 			return (head);
 		head = head->next;
 	}
@@ -18,47 +18,47 @@ list_path *get_variable(char *name, list_path *head)
 	return (NULL);
 }
 /**
- * _varcmp - .
+ * _varllp - .
  * @var_name: .
  * @full_var: .
  * Return: .
  */
-int _varcmp(char *var_name, char *full_var)
+int _varllp(char *var_name, char *full_var)
 {
-	int i;
+	int z;
 
-	for (i = 0; var_name[i]; i++)
+	for (z = 0; var_name[z]; z++)
 	{
-		if (full_var[i])
-			if (var_name[i] - full_var[i] != 0)
+		if (full_var[z])
+			if (var_name[z] - full_var[z] != 0)
 				return (-1);
 	}
-	if (full_var[i] == '=')
+	if (full_var[z] == '=')
 		return (0);
 
 	return (-1);
 }
 
 /**
- * num_to_char - .
- * @num: .
+ * nu_to_ch - .
+ * @nom: .
  * Return: .
  */
-char *num_to_char(int num)
+char *nu_to_ch(int nom)
 {
 	/*count digits*/
-	int c = 0, tmp = num;
+	int c = 0, top = nom;
 	char *cp_num;
 
-	if (num == 0)
+	if (nom == 0)
 	{
 		c = 1;
 	}
 	else
 	{
-		while (tmp != 0)
+		while (top != 0)
 		{
-			tmp /= 10;
+			top /= 10;
 			c++;
 		}
 	}
@@ -73,20 +73,20 @@ char *num_to_char(int num)
 	while (c != 0)
 	{
 		c--;
-		cp_num[c] = '0' + num % 10;
-		num /= 10;
+		cp_num[c] = '0' + nom % 10;
+		nom /= 10;
 	}
 
 	return (cp_num);
 }
 
 /**
- * char_count_piped - .
+ * cher_cot_pid - .
  * @str: .
  * @c: .
  * Return: .
  */
-unsigned int char_count_piped(char *str, char c)
+unsigned int cher_cot_pid(char *str, char c)
 {
 	unsigned int count = 0;
 

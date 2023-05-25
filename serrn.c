@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * print_error - .
+ * priwt_ewwr - .
  * @program_name: .
  * @counter: .
  * @command: .
@@ -9,29 +9,29 @@
  * Return: void
  */
 
-void print_error(char *program_name, int counter,
+void priwt_ewwr(char *program_name, int counter,
 		char *command, int type_of_error)
 {
 	char *counter_s;
 
-	counter_s = num_to_char(counter);
-	write(STDERR_FILENO, program_name, _strlen(program_name));
+	counter_s = nu_to_ch(counter);
+	write(STDERR_FILENO, program_name, _srren(program_name));
 	write(STDERR_FILENO, ": ", 2);
-	write(STDERR_FILENO, counter_s, _strlen(counter_s));
+	write(STDERR_FILENO, counter_s, _srren(counter_s));
 	write(STDERR_FILENO, ": ", 2);
 	if (type_of_error == EXIT_ERROR)
 		write(STDERR_FILENO, "exit", 4);
 	else
-		write(STDERR_FILENO, command, _strlen(command));
+		write(STDERR_FILENO, command, _srren(command));
 	write(STDERR_FILENO, ": ", 2);
 	if (type_of_error == NOT_FOUND)
-		write(STDERR_FILENO, "not found\n", 10);
+		write(STDERR_FILENO, "not foend\n", 10);
 	else if (type_of_error == PERMISSION_DENIED)
 		write(STDERR_FILENO, "Permission denied\n", 18);
 	else if (type_of_error == EXIT_ERROR)
 	{
 		write(STDERR_FILENO, "Illegal number: ", 16);
-		write(STDERR_FILENO, command, _strlen(command));
+		write(STDERR_FILENO, command, _srren(command));
 		write(STDERR_FILENO, "\n", 1);
 	}
 	free(counter_s);
@@ -39,24 +39,24 @@ void print_error(char *program_name, int counter,
 
 
 /**
- * print_cant_open - .
+ * prllt_calt_o - .
  * @program_name: .
  * @counter: .
  * @file_name: .
  * Return: void
  */
-void print_cant_open(char *program_name, int counter, char *file_name)
+void prllt_calt_o(char *program_name, int counter, char *file_name)
 {
 
 	char *counter_s;
 
-	counter_s = num_to_char(counter);
-	write(STDERR_FILENO, program_name, _strlen(program_name));
+	counter_s = nu_to_ch(counter);
+	write(STDERR_FILENO, program_name, _srren(program_name));
 	write(STDERR_FILENO, ": ", 2);
-	write(STDERR_FILENO, counter_s, _strlen(counter_s));
+	write(STDERR_FILENO, counter_s, _srren(counter_s));
 	write(STDERR_FILENO, ": ", 2);
 	write(STDERR_FILENO, "Can't open ", 11);
-	write(STDERR_FILENO, file_name, _strlen(file_name));
+	write(STDERR_FILENO, file_name, _srren(file_name));
 	write(STDERR_FILENO, "\n", 1);
 	free(counter_s);
 }

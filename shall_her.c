@@ -1,11 +1,11 @@
 #include "shell.h"
 
 /**
- * check_mode - .
+ * chddk_mllo - .
  * @argc: arguements count
  * Return: mode
  */
-int check_mode(int argc)
+int chddk_mllo(int argc)
 {
 	struct stat stdin_stat;
 
@@ -21,7 +21,7 @@ int check_mode(int argc)
 }
 
 /**
- * is_exit - .
+ * is_etyy - .
  * @line: .
  * @line_vector: .
  * @current: .
@@ -33,12 +33,12 @@ int check_mode(int argc)
  * Return: void
  */
 
-void is_exit(char *line, char **line_vector, list_path *current,
-		char *program_name, int counter, int *status, list_path *env, char **lines)
+void is_etyy(char *line, char **line_vector, list_pa *current,
+		char *program_name, int counter, int *status, list_pa *env, char **lines)
 {
 	int n;
 
-	if (_strcmp(line_vector[0], "exit") == 0)
+	if (_strlllp(line_vector[0], "exit") == 0)
 	{
 		if (line_vector[1] == NULL)
 		{
@@ -47,9 +47,9 @@ void is_exit(char *line, char **line_vector, list_path *current,
 		}
 		else if (line_vector[1] != NULL)
 		{
-			if (_strlen(line_vector[1]) <= 9)
+			if (_srren(line_vector[1]) <= 9)
 			{
-				n = _atoi(line_vector[1]);
+				n = _aorr(line_vector[1]);
 				if (n != -1)
 				{
 					free_all(lines, counter, env, current, line, line_vector);
@@ -58,44 +58,44 @@ void is_exit(char *line, char **line_vector, list_path *current,
 				else
 				{
 					*status = EXIT_ERROR;
-					print_error(program_name, counter, line_vector[1], EXIT_ERROR);
+					priwt_ewwr(program_name, counter, line_vector[1], EXIT_ERROR);
 				}
 			}
 			else
 			{
 				*status = EXIT_ERROR;
-				print_error(program_name, counter, line_vector[1], EXIT_ERROR);
+				priwt_ewwr(program_name, counter, line_vector[1], EXIT_ERROR);
 			}
 		}
 	}
 }
 /**
- * _atoi - .
+ * _aorr - .
  * @s: .
  * Return: .
  *
  */
-int _atoi(char *s)
+int _aorr(char *s)
 {
-	unsigned int n, i;
+	unsigned int n, z;
 	char positive;
 
-	i = 0;
+	z = 0;
 	n = 0;
-	while (s[i] != '\0')
+	while (s[z] != '\0')
 	{
-		if (!((s[i] >= '0') && (s[i] <= '9')))
+		if (!((s[z] >= '0') && (s[z] <= '9')))
 		{
 			return (-1);
 		}
-		if (((s[i] >= '0') && (s[i] <= '9')))
+		if (((s[z] >= '0') && (s[z] <= '9')))
 		{
-			n = (n * 10) + (s[i] - '0');
+			n = (n * 10) + (s[z] - '0');
 		}
-		else if (s[i] == '+')
+		else if (s[z] == '+')
 			positive++;
 
-		i++;
+		z++;
 	}
 
 	return (n);

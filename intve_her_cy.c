@@ -1,11 +1,11 @@
 #include "shell.h"
 
 /**
- * get_command_from_user - .
+ * get_cod_fr_ur - .
  * @current: .
  * Return: .
  */
-char *get_command_from_user(list_path *current)
+char *get_cod_fr_ur(list_pa *current)
 {
 	ssize_t nread;
 	size_t n = 0;
@@ -17,7 +17,7 @@ char *get_command_from_user(list_path *current)
 	{
 		write(STDOUT_FILENO, "\n", 1);
 		free(line);
-		free_list(current);
+		frrr_li(current);
 		exit(0);
 	}
 
@@ -31,12 +31,12 @@ char *get_command_from_user(list_path *current)
 	return (line);
 }
 /**
- * get_command_from_file - .
+ * get_cod_fewm_fiaa - .
  * @file: .
  * Return: .
  */
 
-char *get_command_from_file(char *file)
+char *get_cod_fewm_fiaa(char *file)
 {
 	return (file);
 }

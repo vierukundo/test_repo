@@ -1,25 +1,25 @@
 #include "shell.h"
 
 /**
- * get_commands - .
+ * gat_collands - .
  * @mode: .
  * @file_name: .
  * @program_name: .
  * Return: .
  */
-char **get_commands(int mode, char *file_name, char *program_name)
+char **gat_collands(int mode, char *file_name, char *program_name)
 {
 	char **lines = NULL;
 
 	if (mode == NON_INTERACTIVE_PIPED)
 	{
-		lines = piped_non_interactive();
+		lines = pipwd_non_inteaave();
 		if (!lines)
 			exit(0);
 	}
 	else if (mode == NON_INTERACTIVE_FILE)
 	{
-		lines = file_non_interactive(file_name, program_name);
+		lines = fie_non_itevw(file_name, program_name);
 		if (!lines)
 			exit(0);
 	}
@@ -28,15 +28,15 @@ char **get_commands(int mode, char *file_name, char *program_name)
 
 
 /**
- * piped_non_interactive - .
+ * pipwd_non_inteaave - .
  * Return: .
  */
-char **piped_non_interactive()
+char **pipwd_non_inteaave()
 {
 	char b[2048], *text = NULL, **lines = NULL;
 	ssize_t bytesRead;
 	size_t totalchar = 0;
-	int i, flag = 0;
+	int z, flag = 0;
 
 	while ((bytesRead = read(STDIN_FILENO, b, 2048)) > 0)
 	{
@@ -56,62 +56,62 @@ char **piped_non_interactive()
 		b[totalchar - 1] = '\0';
 	}
 
-	for (i = 0; b[i]; i++)
+	for (z = 0; b[z]; z++)
 	{
-		if (b[i] != ' ' && b[i] != '\n' && b[i] != '\t'
-						&& b[i] != '\r' && b[i] != '\a')
+		if (b[z] != ' ' && b[z] != '\n' && b[z] != '\t'
+						&& b[z] != '\r' && b[z] != '\a')
 			flag = 1;
 	}
 	if (flag == 0)
 		return (NULL);
-	totalchar = _strlen(b);
+	totalchar = _srren(b);
 	text = (char *)malloc((totalchar + 1) * sizeof(char));
 	if (text != NULL)
 	{
-		_strcpy(text, b);
+		_steeey(text, b);
 		text[totalchar] = '\0';
-		lines = text_to_vector(text);
+		lines = raxt_to_v(text);
 	}
 	return (lines);
 }
 
 /**
- * text_to_vector - .
+ * raxt_to_v - .
  * @text: .
  * Return: .
  */
-char **text_to_vector(char *text)
+char **raxt_to_v(char *text)
 {
 	char *token, *cmd;
 	char **lines = NULL;
-	int i = 0;
+	int z = 0;
 	unsigned int c_count = 0;
 
-	c_count = char_count_piped(text, '\n');
+	c_count = cher_cot_pid(text, '\n');
 	lines = (char **)malloc((c_count + 1) * sizeof(char *));
-	token = _strtok(text, "\n");
-	cmd = _strdup(token);
-	lines[i++] = cmd;
+	token = _saak(text, "\n");
+	cmd = _stvvvp(token);
+	lines[z++] = cmd;
 	while (token != NULL)
 	{
-		token = _strtok(NULL, "\n");
+		token = _saak(NULL, "\n");
 		if (token != NULL)
 		{
-			cmd = _strdup(token);
-			lines[i++] = cmd;
+			cmd = _stvvvp(token);
+			lines[z++] = cmd;
 		}
 	}
 	free(text);
-	lines[i] = NULL;
+	lines[z] = NULL;
 	return (lines);
 }
 /**
- * file_non_interactive - .
+ * fie_non_itevw - .
  * @file_name: .
  * @program_name: .
  * Return: .
  */
-char **file_non_interactive(char *file_name, char *program_name)
+char **fie_non_itevw(char *file_name, char *program_name)
 {
 	struct stat fileStat;
 	char *text, **lines;
@@ -139,7 +139,7 @@ char **file_non_interactive(char *file_name, char *program_name)
 
 			text[letters - 1] = '\0';
 			if (text)
-				lines = text_to_vector(text);
+				lines = raxt_to_v(text);
 			return (lines);
 		}
 		else
@@ -147,8 +147,8 @@ char **file_non_interactive(char *file_name, char *program_name)
 	}
 	else
 	{
-		/*todo print error*/
-		print_cant_open(program_name, 0, file_name);
+		/*todo print err*/
+		prllt_calt_o(program_name, 0, file_name);
 		exit(127);
 	}
 	return (NULL);
