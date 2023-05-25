@@ -9,7 +9,7 @@
  * Return: .
  */
 ssize_t _getlineHelper(char **lineptr, size_t *n,
-		__attribute__((unused)) FILE *stream)
+		__attribute__((unused)) FILE * stream)
 {
 	if (lineptr == NULL || n == NULL)
 		return (-1);
