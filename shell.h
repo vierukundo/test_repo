@@ -40,6 +40,9 @@ int _strcmp(char *s1, char *s2);
 char *_getenv(char *name);
 void free_list(list_path *head);
 int _strlen(char *s);
+ssize_t _getlineHelper(char **lineptr, size_t *n,
+		__attribute__((unused)) FILE * stream);
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 char *_strdup(char *str);
 char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
