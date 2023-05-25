@@ -15,7 +15,7 @@ ssize_t _getlineHelper(char **lineptr, size_t *n,
 		return (-1);
 	if (*lineptr == NULL)
 	{
-		*n = 8192; /* Maximum expected line length */
+		*n = 128; /* Maximum expected line length */
 		*lineptr = malloc(*n);
 		if (*lineptr == NULL)
 			return (-1);
