@@ -9,14 +9,14 @@
  * Return: .
  */
 ssize_t _getlineHelper(char **lineptr, size_t *n,
-		__attribute__((unused)) FILE * stream)
+		__attribute__((unused)) FILE *stream)
 {
 	if (lineptr == NULL || n == NULL)
 		return (-1);
 	if (*lineptr == NULL)
 	{
-		*n = 128;
-		*lineptr = (char *)malloc(*n);
+		*n = 8192; /* Maximum expected line length */
+		*lineptr = malloc(*n);
 		if (*lineptr == NULL)
 			return (-1);
 	}
